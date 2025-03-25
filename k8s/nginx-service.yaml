@@ -1,0 +1,72 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: nginx-service
+spec:
+  selector:
+    app: nginx
+  ports:
+    - port: 80
+      targetPort: 80
+      nodePort: 30000
+  type: NodePort
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: nginx-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: nginx
+  template:
+    metadata:
+      labels:
+        app: nginx
+    spec:
+      containers:
+        - name: nginx
+          image: nginx:latest
+          volumeMounts:
+            - name: html-files
+              mountPath: /usr/share/nginx/html  # Nginx 默认的静态文件路径
+            - name: nginx-config
+              mountPath: /etc/nginx/nginx.conf  # 挂载自定义的 Nginx 配置
+              subPath: nginx.conf
+          ports:
+            - containerPort: 80
+      volumes:
+        - name: html-files
+          hostPath:
+            path: /opt/out  # 本地 HTML 文件路径
+            type: Directory
+        - name: nginx-config
+          configMap:
+            name: nginx-config-map  # 使用 ConfigMap 来提供 Nginx 配置
+
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: nginx-config-map
+data:
+  nginx.conf: |
+    worker_processes auto;
+
+    events {
+        worker_connections 1024;
+    }
+
+    http {
+        server {
+            listen 80;
+
+            server_name freewayvpn.top;
+            
+            location / {
+                root /usr/share/nginx/html;
+                index index.html;
+            }
+        }
+    }
