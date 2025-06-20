@@ -1,8 +1,8 @@
 export type SiteConfig = typeof siteConfig;
 
 export const siteConfig = {
-  name: "Next.js + NextUI",
-  description: "Make beautiful websites regardless of your design experience.",
+  name: "FreewayVPN",
+  description: "Break Boundaries, Surf Freely with FreeWayVPN.",
   navItems: [
     {
       label: "Home",
@@ -12,6 +12,10 @@ export const siteConfig = {
       label: "Pricing",
       href: "/pricing",
     },
+    {
+      label: "Download",
+      href: "/download",
+    }
   ],
   navMenuItems: [
     {
@@ -22,9 +26,13 @@ export const siteConfig = {
       label: "Pricing",
       href: "/pricing",
     },
+    {
+      label: "Download",
+      href: "/download",
+    }
   ],
   links: {
-    github: "https://github.com/nextui-org/nextui",
-    download: "https://nextui.org",
+    github: "https://github.com/gtz123456/distributed_xray",
+    download: "/download",
   },
 };

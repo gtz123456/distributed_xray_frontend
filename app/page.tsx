@@ -1,27 +1,33 @@
 import { Link } from "@nextui-org/link";
-import { Snippet } from "@nextui-org/snippet";
-import { Code } from "@nextui-org/code";
+import NextLink from "next/link";
 import { button as buttonStyles } from "@nextui-org/theme";
 
 import { siteConfig } from "@/config/site";
-import { title, subtitle } from "@/components/primitives";
 import { GithubIcon } from "@/components/icons";
+
+import HexMap from "@/components/hexmap";
+
 
 export default function Home() {
   return (
-    <section className="flex flex-col items-center justify-center gap-4 py-8 md:py-10 overflow-hidden">
-      <div className="inline-block max-w-xl text-center justify-center ">
-        <span className={title()}>Bypass firewall and censorship&nbsp;</span>
-        <span className={title({ color: "violet" })}>effortlessly&nbsp;</span>
-        <br />
-        <div className={subtitle({ class: "mt-4 text-16px" })}>
-          A simple, fast, and safe VPN solution.
-        </div>
+    <section className="flex flex-col items-center justify-center gap-6 py-10 md:py-12 overflow-hidden">
+      <div className="inline-block max-w-xl text-center justify-center animate-fade-in">
+        <h1 className="text-4xl font-extrabold">
+          Internet Without Borders.{" "}
+          <span className="bg-gradient-to-r from-purple-500 via-blue-500 to-teal-400 text-transparent bg-clip-text">
+            Fast. Secure. Free.
+          </span>
+        </h1>
+        <p className="mt-4 text-lg text-gray-400">
+          Break Boundaries, Surf Freely with{" "}
+          <span className="font-semibold text-white">FreeWayVPN.</span>
+        </p>
       </div>
 
-      <div className="flex gap-3">
-        <Link
-          isExternal
+      <HexMap/>
+
+      <div className="flex gap-4 mt-4">
+        <NextLink
           className={buttonStyles({
             color: "primary",
             radius: "full",
@@ -30,7 +36,7 @@ export default function Home() {
           href={siteConfig.links.download}
         >
           Download
-        </Link>
+        </NextLink>
         <Link
           isExternal
           className={buttonStyles({ variant: "bordered", radius: "full" })}

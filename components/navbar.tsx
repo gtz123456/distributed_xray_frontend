@@ -22,12 +22,12 @@ import { it } from "node:test";
 
 export const Navbar = () => {
   return (
-    <NextUINavbar className="overflow-hidden" maxWidth="xl" position="sticky">
+    <NextUINavbar className="" maxWidth="xl" position="sticky">
       <NavbarContent className="basis-1/5 sm:basis-full" justify="start">
         <NavbarBrand as="li" className="gap-3 max-w-fit">
           <NextLink className="flex justify-start items-center gap-1" href="/">
             <Logo />
-            <p className="font-bold text-inherit">EZVPN</p>
+            <p className="font-bold text-inherit">FreewayVPN</p>
           </NextLink>
         </NavbarBrand>
         <ul className="hidden lg:flex gap-4 justify-start ml-2">
@@ -56,7 +56,6 @@ export const Navbar = () => {
           <Link isExternal aria-label="Github" href={siteConfig.links.github}>
             <GithubIcon className="text-default-500" />
           </Link>
-          <ThemeSwitch />
         </NavbarItem>
         <NavbarMenuToggle className="lg:hidden"/>
       </NavbarContent>
@@ -65,7 +64,6 @@ export const Navbar = () => {
         <Link isExternal aria-label="Github" href={siteConfig.links.github}>
           <GithubIcon className="text-default-500" />
         </Link>
-        <ThemeSwitch />
         <NavbarMenuToggle />
       </NavbarContent>
 
