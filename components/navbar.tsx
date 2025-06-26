@@ -22,13 +22,7 @@ import { it } from "node:test";
 import { LanguageSwitch } from "@/components/language-switch";
 import { getDictionary } from "@/app/[lang]/dictionaries";
 
-export const Navbar = async ({
-  params,
-}: {
-  params: Promise<{ lang: "en" | "zh" }>;
-}) => {
-  const { lang } = await params;
-  const dict: any = await getDictionary(lang);
+export const Navbar = ({dict, lang}: { dict: any, lang: string }) => {
 
   return (
     <NextUINavbar className="" maxWidth="xl" position="sticky">
@@ -50,7 +44,7 @@ export const Navbar = async ({
                 color="foreground"
                 href={`/${lang}${item.href}`}
               >
-                {dict.routes[item.label.toLowerCase()]}
+                {dict[item.label.toLowerCase()]}
               </NextLink>
             </NavbarItem>
           ))}

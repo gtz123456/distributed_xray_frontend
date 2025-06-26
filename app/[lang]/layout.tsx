@@ -9,6 +9,8 @@ import { siteConfig } from "@/config/site";
 import { fontSans } from "@/config/fonts";
 import { Navbar } from "@/components/navbar";
 
+import { getDictionary } from "@/app/[lang]/dictionaries";
+
 export const metadata: Metadata = {
   title: {
     default: siteConfig.name,
@@ -27,13 +29,16 @@ export const viewport: Viewport = {
   ],
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
   params,
 }: {
   children: React.ReactNode;
   params: Promise<{ lang: "en" | "zh" }>;
 }) {
+    const { lang } = await params;
+    const dict: any = await getDictionary(lang);
+
   return (
     <html suppressHydrationWarning lang="en">
       <head />
@@ -45,7 +50,7 @@ export default function RootLayout({
       >
         <Providers themeProps={{ attribute: "class", defaultTheme: "dark" }}>
           <div className="relative flex flex-col h-screen">
-            <Navbar params={params} />
+            <Navbar dict={dict.routes} lang={lang}/>
             <main className="container mx-auto max-w-7xl pt-16 px-6 flex-grow">
               {children}
             </main>
