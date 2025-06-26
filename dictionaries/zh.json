@@ -1,0 +1,37 @@
+{
+  "defaultpage": {
+    "welcome1": "无界上网,",
+    "welcome2": "快速、安全、免费。",
+    "welcome3": "突破边界，自由畅游 —— 尽在"
+  },
+  "routes": {
+    "home": "首页",
+    "pricing": "定价",
+    "download": "下载"
+  },
+  "download": {
+    "multiPlatform": "FreeWayVPN 支持多个平台",
+    "iosComingSoon": "iOS (即将推出)",
+    "androidComingSoon": "Android (即将推出)",
+    "selectVersion": "选择版本：",
+    "downloadButton": "下载"
+  },
+  "pricing": {
+    "title": "定价",
+    "subtitle": "选择适合您需求的套餐",
+    "basicPlan": {
+      "title": "基础套餐",
+      "price": "永久免费",
+      "feature1": "连接基础节点，保证可靠访问",
+      "feature2": "加密传输，突破防火墙",
+      "feature3": "多平台登录支持"
+    },
+    "premiumPlan": {
+      "title": "高级套餐",
+      "price": "￥19.9 / 月",
+      "feature1": "包含所有基础套餐功能",
+      "feature2": "访问更多全球节点",
+      "feature3": "提升速度，降低延迟"
+    }
+  }
+}

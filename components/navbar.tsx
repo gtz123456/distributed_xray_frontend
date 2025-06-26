@@ -19,8 +19,17 @@ import { siteConfig } from "@/config/site";
 import { ThemeSwitch } from "@/components/theme-switch";
 import { GithubIcon, Logo } from "@/components/icons";
 import { it } from "node:test";
+import { LanguageSwitch } from "@/components/language-switch";
+import { getDictionary } from "@/app/[lang]/dictionaries";
 
-export const Navbar = () => {
+export const Navbar = async ({
+  params,
+}: {
+  params: Promise<{ lang: "en" | "zh" }>;
+}) => {
+  const { lang } = await params;
+  const dict: any = await getDictionary(lang);
+
   return (
     <NextUINavbar className="" maxWidth="xl" position="sticky">
       <NavbarContent className="basis-1/5 sm:basis-full" justify="start">
@@ -39,9 +48,9 @@ export const Navbar = () => {
                   "data-[active=true]:text-primary data-[active=true]:font-medium",
                 )}
                 color="foreground"
-                href={item.href}
+                href={`/${lang}${item.href}`}
               >
-                {item.label}
+                {dict.routes[item.label.toLowerCase()]}
               </NextLink>
             </NavbarItem>
           ))}
@@ -56,6 +65,7 @@ export const Navbar = () => {
           <Link isExternal aria-label="Github" href={siteConfig.links.github}>
             <GithubIcon className="text-default-500" />
           </Link>
+          <LanguageSwitch />
         </NavbarItem>
         <NavbarMenuToggle className="lg:hidden"/>
       </NavbarContent>
@@ -64,6 +74,7 @@ export const Navbar = () => {
         <Link isExternal aria-label="Github" href={siteConfig.links.github}>
           <GithubIcon className="text-default-500" />
         </Link>
+        <LanguageSwitch />
         <NavbarMenuToggle />
       </NavbarContent>
 

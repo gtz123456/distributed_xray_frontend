@@ -9,6 +9,7 @@
 		"lint": "eslint . --ext .ts,.tsx -c .eslintrc.json --fix"
 	},
 	"dependencies": {
+		"@formatjs/intl-localematcher": "^0.6.1",
 		"@nextui-org/button": "2.0.38",
 		"@nextui-org/code": "2.0.33",
 		"@nextui-org/input": "2.2.5",
@@ -26,6 +27,7 @@
 		"d3": "^7.9.0",
 		"framer-motion": "~11.1.1",
 		"intl-messageformat": "^10.5.0",
+		"negotiator": "^1.0.0",
 		"next": "14.2.4",
 		"next-themes": "^0.2.1",
 		"react": "18.3.1",

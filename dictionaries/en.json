@@ -1,0 +1,37 @@
+{
+  "defaultpage": {
+    "welcome1": "Internet Without Borders.",
+    "welcome2": "Fast. Secure. Free.",
+    "welcome3": "Break Boundaries. Surf Freely with "
+  },
+  "routes": {
+    "home": "Home",
+    "pricing": "Pricing",
+    "download": "Download"
+  },
+  "download": {
+    "multiPlatform": "FreeWayVPN is available on multiple platforms",
+    "iosComingSoon": "iOS (coming soon)",
+    "androidComingSoon": "Android (coming soon)",
+    "selectVersion": "Select your version:",
+    "downloadButton": "Download"
+  },
+  "pricing": {
+    "title": "Pricing",
+    "subtitle": "Choose the plan that fits your needs",
+    "basicPlan": {
+      "title": "Basic Plan",
+      "price": "Free Forever",
+      "feature1": "Connect to basic nodes for reliable access",
+      "feature2": "Encrypted transmission to bypass firewalls",
+      "feature3": "Multi-platform login support"
+    },
+    "premiumPlan": {
+      "title": "Premium Plan",
+      "price": "$2.99 / month",
+      "feature1": "Includes all Basic Plan features",
+      "feature2": "Access to a larger selection of global nodes",
+      "feature3": "Improved speed and reduced latency"
+    }
+  }
+}

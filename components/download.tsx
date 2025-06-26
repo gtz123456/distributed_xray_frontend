@@ -10,9 +10,12 @@ import {
 } from "@/components/icons";
 import { useEffect, useState } from "react";
 
-export const Download = () => {
+export const Download = ({ dict }: any) => {
   const [assets, setAssets] = useState<{ name: string; url: string }[]>([]);
-  const [selectedAsset, setSelectedAsset] = useState<{ name: string; url: string } | null>(null);
+  const [selectedAsset, setSelectedAsset] = useState<{
+    name: string;
+    url: string;
+  } | null>(null);
   const [platform, setPlatform] = useState("");
   const [architecture, setArchitecture] = useState("");
 
@@ -54,20 +57,24 @@ export const Download = () => {
 
         // Filter by extension using endsWith for reliability
         const windowsAssets = normalized.filter(
-          (a: { lower: string; }) => a.lower.endsWith(".exe") || a.lower.endsWith(".msi"),
+          (a: { lower: string }) =>
+            a.lower.endsWith(".exe") || a.lower.endsWith(".msi"),
         );
         const macAssets = normalized.filter(
-          (a: { lower: string; }) => a.lower.endsWith(".dmg") || a.lower.endsWith(".app.tar.gz"),
+          (a: { lower: string }) =>
+            a.lower.endsWith(".dmg") || a.lower.endsWith(".app.tar.gz"),
         );
         const linuxAssets = normalized.filter(
-          (a: { lower: string; }) =>
+          (a: { lower: string }) =>
             a.lower.endsWith(".rpm") ||
             a.lower.endsWith(".deb") ||
             a.lower.endsWith(".appimage"),
         );
 
         // remove .gz files
-        macAssets.filter((a: { lower: string; }) => !a.lower.endsWith(".tar.gz"));
+        macAssets.filter(
+          (a: { lower: string }) => !a.lower.endsWith(".tar.gz"),
+        );
 
         const sortedAssets = [
           ...windowsAssets,
@@ -92,7 +99,7 @@ export const Download = () => {
   return (
     <div>
       <p className={subtitle({ class: "mt-4 text-lg" })}>
-        FreeWayVPN is available on multiple platforms
+        {dict.multiPlatform}
       </p>
 
       <ul className="flex flex-row flex-nowrap justify-center mt-6 text-md text-gray-400 list-disc pl-5">
@@ -110,17 +117,17 @@ export const Download = () => {
         </li>
         <li className="flex flex-col items-center gap-2 p-2">
           <IOSIcon size={40} />
-          <span>iOS (coming soon)</span>
+          <span>{dict.iosComingSoon}</span>
         </li>
         <li className="flex flex-col items-center gap-2 p-2">
           <AndroidIcon size={40} />
-          <span>Android (coming soon)</span>
+          <span>{dict.androidComingSoon}</span>
         </li>
       </ul>
 
-      <div className="mt-4 flex flex-row">
+      <div className="mt-4 flex flex-row items-center gap-2">
         <label htmlFor="asset-select" className="block text-md text-gray-400">
-          Select your version:
+          {dict.selectVersion}
         </label>
         <select
           id="asset-select"
@@ -147,7 +154,7 @@ export const Download = () => {
         target="_blank"
         rel="noreferrer"
       >
-        Download
+        {dict.downloadButton}
       </a>
     </div>
   );
