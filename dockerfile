@@ -1,9 +1,23 @@
-FROM nginx:latest
+# --- build ---
+FROM node:18-alpine AS builder
+WORKDIR /app
+COPY package.json package-lock.json ./
+RUN npm install
+COPY . .
+RUN npm run build
 
-COPY ./nginx.conf /etc/nginx/nginx.conf
+# --- run ---
+FROM node:18-alpine AS runner
+WORKDIR /app
+ENV NODE_ENV=production
 
-COPY ./out /usr/share/nginx/html
+COPY --from=builder /app/public ./public
+COPY --from=builder /app/.next ./.next
+COPY --from=builder /app/node_modules ./node_modules
+COPY --from=builder /app/package.json ./package.json
+COPY --from=builder /app/next.config.js ./next.config.js
 
 EXPOSE 80
 
-CMD ["nginx", "-g", "daemon off;"]
+ENV PORT=80
+CMD ["npm", "start"]
