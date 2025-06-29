@@ -28,7 +28,6 @@ export const viewport: Viewport = {
     { media: "(prefers-color-scheme: dark)", color: "black" },
   ],
 };
-
 export default async function RootLayout({
   children,
   params,
@@ -44,9 +43,10 @@ export default async function RootLayout({
       <head />
       <body
         className={clsx(
-          "min-h-screen bg-background font-sans antialiased",
+          "min-h-screen font-sans antialiased",
           fontSans.variable,
         )}
+        style={{ backgroundColor: "#0a0118" }}
       >
         <Providers themeProps={{ attribute: "class", defaultTheme: "dark" }}>
           <div className="relative flex flex-col h-screen">

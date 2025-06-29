@@ -20,7 +20,7 @@
     "title": "定价",
     "subtitle": "选择适合您需求的套餐",
     "basicPlan": {
-      "title": "基础套餐",
+      "title": "免费套餐",
       "price": "永久免费",
       "feature1": "连接基础节点，保证可靠访问",
       "feature2": "加密传输，突破防火墙",
@@ -28,7 +28,7 @@
     },
     "premiumPlan": {
       "title": "高级套餐",
-      "price": "￥19.9 / 月",
+      "price": "测试期间免费",
       "feature1": "包含所有基础套餐功能",
       "feature2": "访问更多全球节点",
       "feature3": "提升速度，降低延迟"

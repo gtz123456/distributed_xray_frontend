@@ -32,12 +32,17 @@ const HexMap = () => {
     const VERTICAL_CURVE_ANGLE = Math.PI * 0.2; // 纬度范围
 
     // 六边形网格参数
-    const GRID_RESOLUTION_X = 200;
+    const GRID_RESOLUTION_X =
+      window.innerWidth / 10 < 130
+      ? 130
+      : window.innerWidth / 10 > 180
+      ? 180
+      : window.innerWidth / 10;
     const GRID_RESOLUTION_Y = Math.floor(
       GRID_RESOLUTION_X * (VERTICAL_CURVE_ANGLE / HORIZONTAL_CURVE_ANGLE),
     );
     const HEX_SIZE_FACTOR = 1.1;
-    const LAND_COLOR = 0x3399ff;
+    const LAND_COLOR = 0x4a7cf6;
     const LAND_THRESHOLD = 50;
 
     // 计算六边形尺寸
@@ -62,6 +67,7 @@ const HexMap = () => {
     const renderer = new THREE.WebGLRenderer({ antialias: true });
 
     renderer.setSize(window.innerWidth, window.innerHeight / 2);
+    renderer.setClearColor(0x0a0118);
     camera.aspect = window.innerWidth / (window.innerHeight / 1.8); // 水平拉伸
     camera.updateProjectionMatrix();
     mountRef.current.appendChild(renderer.domElement);
@@ -349,9 +355,9 @@ const HexMap = () => {
         );
 
         const tubeMaterial = new THREE.MeshBasicMaterial({
-          color: 0xaaffff,
+          color: 0xa456f7,
           transparent: true,
-          opacity: 0.9,
+          opacity: 0.7,
           side: THREE.DoubleSide,
         });
 
