@@ -1,3 +1,3 @@
 ## run with docker
-docker build -t my-next-app .
-docker run -p 80:80 my-next-app
+docker build -t freewayvpn .
+docker run -d -p 80:80 --name freewayvpn freewayvpn
