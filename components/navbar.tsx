@@ -25,7 +25,7 @@ import { getDictionary } from "@/app/[lang]/dictionaries";
 export const Navbar = ({dict, lang}: { dict: any, lang: string }) => {
 
   return (
-    <NextUINavbar className="" maxWidth="xl" position="sticky">
+    <NextUINavbar className="bg-[#0a0118]" maxWidth="xl" position="sticky">
       <NavbarContent className="basis-1/5 sm:basis-full" justify="start">
         <NavbarBrand as="li" className="gap-3 max-w-fit">
           <NextLink className="flex justify-start items-center gap-1" href="/">
