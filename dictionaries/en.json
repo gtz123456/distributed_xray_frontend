@@ -32,6 +32,7 @@
       "feature1": "Includes all Basic Plan features",
       "feature2": "Access to a larger selection of global nodes",
       "feature3": "Improved speed and reduced latency"
-    }
+    },
+    "note": "This is a non-profit VPN project committed to helping users bypass censorship and access free information. We offer a permanently free plan with speeds up to 10 Mbps, fast enough for smooth 1080p streaming and safe, uncensored communication. We strive to reduce costs via free-tier cloud services, but after the Beta phase, we may introduce paid premium plans to cover server expenses only."
   }
 }

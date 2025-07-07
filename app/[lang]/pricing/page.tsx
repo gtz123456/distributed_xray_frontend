@@ -2,7 +2,6 @@ import { CheckIcon } from "@/components/icons";
 import { getDictionary } from "@/app/[lang]/dictionaries";
 import GlowingCard from "@/components/GlowingCards";
 
-
 export default async function PricingPage({
   params,
 }: {
@@ -17,33 +16,48 @@ export default async function PricingPage({
         <h1 className="text-4xl font-extrabold">{dict.pricing.title}</h1>
         <p className="mt-4 text-lg text-gray-400">{dict.pricing.subtitle}</p>
       </div>
-      
+
       <div className="flex flex-wrap justify-center gap-4 mt-4">
         <GlowingCard className="">
           <div className="p-4">
-            <h2 className="text-2xl font-bold">{dict.pricing.basicPlan.title}</h2>
+            <h2 className="text-2xl font-bold">
+              {dict.pricing.basicPlan.title}
+            </h2>
             <p className="text-lg mt-2">{dict.pricing.basicPlan.price}</p>
             <ul className="mt-4 space-y-2 text-gray-300 text-left">
-              <li className="flex items-center flex-row"><CheckIcon/> <div>{dict.pricing.basicPlan.feature1}</div></li>
-              <li className="flex items-center"><CheckIcon/> {dict.pricing.basicPlan.feature2}</li>
-              <li className="flex items-center"><CheckIcon/> {dict.pricing.basicPlan.feature3}</li>
+              <li className="flex items-center flex-row">
+                <CheckIcon /> <div>{dict.pricing.basicPlan.feature1}</div>
+              </li>
+              <li className="flex items-center">
+                <CheckIcon /> {dict.pricing.basicPlan.feature2}
+              </li>
+              <li className="flex items-center">
+                <CheckIcon /> {dict.pricing.basicPlan.feature3}
+              </li>
             </ul>
           </div>
         </GlowingCard>
 
-        <GlowingCard className="">
+        <GlowingCard className="min-w-80">
           <div className="p-4">
             <h2 className="text-2xl font-bold bg-gradient-to-r from-purple-500 via-blue-500 to-teal-400 bg-clip-text text-transparent">
               {dict.pricing.premiumPlan.title}
             </h2>
             <p className="text-lg mt-2">{dict.pricing.premiumPlan.price}</p>
             <ul className="mt-4 space-y-2 text-gray-100 text-left">
-              <li className="flex items-center"><CheckIcon/> {dict.pricing.premiumPlan.feature1}</li>
-              <li className="flex items-center"><CheckIcon/> {dict.pricing.premiumPlan.feature2}</li>
-              <li className="flex items-center"><CheckIcon/> {dict.pricing.premiumPlan.feature3}</li>
+              <li className="flex items-center">
+                <CheckIcon /> {dict.pricing.premiumPlan.feature1}
+              </li>
+              <li className="flex items-center">
+                <CheckIcon /> {dict.pricing.premiumPlan.feature2}
+              </li>
+              <li className="flex items-center">
+                <CheckIcon /> {dict.pricing.premiumPlan.feature3}
+              </li>
             </ul>
           </div>
         </GlowingCard>
+        <div className="text-gray-400 pt-6">{dict.pricing.note}</div>
       </div>
     </section>
   );

@@ -4,7 +4,7 @@ import { usePathname, useRouter } from "next/navigation";
 import { useState, useRef, useEffect } from "react";
 
 export const LanguageSwitch = () => {
-  const pathname = usePathname();
+  const pathname = usePathname(); // TODO: bug 
   const router = useRouter();
   const [isOpen, setIsOpen] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
