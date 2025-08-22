@@ -12,6 +12,7 @@ import { useEffect, useState } from "react";
 
 export const Download = ({ dict }: any) => {
   const [assets, setAssets] = useState<{ name: string; url: string }[]>([]);
+  const [assetGroups, setAssetGroups] = useState<{ label: string; options: { name: string; url: string }[] }[]>([]);
   const [selectedAsset, setSelectedAsset] = useState<{
     name: string;
     url: string;
@@ -44,7 +45,7 @@ export const Download = ({ dict }: any) => {
       .then((res) => res.json())
       .then((data) => {
         const allAssets = data.assets.map(
-          (a: { name: any; browser_download_url: any }) => ({
+          (a: { name: string; browser_download_url: string }) => ({
             name: a.name,
             url: a.browser_download_url,
           }),
@@ -55,43 +56,74 @@ export const Download = ({ dict }: any) => {
           lower: a.name.toLowerCase(),
         }));
 
-        // Filter by extension using endsWith for reliability
-        const windowsAssets = normalized.filter(
-          (a: { lower: string }) =>
-            a.lower.endsWith(".exe") || a.lower.endsWith(".msi"),
-        );
-        const macAssets = normalized.filter(
-          (a: { lower: string }) =>
-            a.lower.endsWith(".dmg") || a.lower.endsWith(".app.tar.gz"),
-        );
-        const linuxAssets = normalized.filter(
-          (a: { lower: string }) =>
-            a.lower.endsWith(".rpm") ||
-            a.lower.endsWith(".deb") ||
-            a.lower.endsWith(".appimage"),
+        type NormalizedAsset = {
+          name: string;
+          url: string;
+          lower: string;
+        };
+
+        const windowsAssets = normalized.filter((a: NormalizedAsset) =>
+          a.lower.endsWith(".exe") || a.lower.endsWith(".msi")
         );
 
-        // remove .gz files
-        macAssets.filter(
-          (a: { lower: string }) => !a.lower.endsWith(".tar.gz"),
+        let macAssets = normalized.filter((a: NormalizedAsset) => a.lower.endsWith(".dmg"));
+        // FIX: Re-assign the filtered array
+        macAssets = macAssets.filter((a: NormalizedAsset) => !a.lower.endsWith(".gz"));
+
+        const linuxAssets = normalized.filter((a: NormalizedAsset) =>
+          a.lower.endsWith(".rpm") ||
+          a.lower.endsWith(".deb") ||
+          a.lower.endsWith(".appimage")
         );
 
-        const sortedAssets = [
-          ...windowsAssets,
-          ...macAssets,
-          ...linuxAssets,
-        ].map((a) => ({ name: a.name, url: a.url }));
+        // 2. Further split Mac assets by architecture
+        const macAppleSiliconAssets = macAssets.filter((a: NormalizedAsset) =>
+          a.lower.includes("arm64") || a.lower.includes("aarch64")
+        );
+        const macIntelAssets = macAssets.filter((a: NormalizedAsset) =>
+          a.lower.includes("x64") || a.lower.includes("amd64") ||
+          (!a.lower.includes("arm64") && !a.lower.includes("aarch64")) // Fallback
+        );
 
-        setAssets(sortedAssets);
+        // 3. Create the grouped structure for the <select> element
+        const groups = [];
+        if (windowsAssets.length > 0) {
+          groups.push({
+            label: "Windows",
+            options: windowsAssets.map((a: NormalizedAsset) => ({ name: a.name, url: a.url })),
+          });
+        }
+        if (macAppleSiliconAssets.length > 0) {
+          groups.push({
+            label: "macOS - Apple Silicon (M1-M4)",
+            options: macAppleSiliconAssets.map((a: NormalizedAsset) => ({ name: a.name, url: a.url })),
+          });
+        }
+        if (macIntelAssets.length > 0) {
+          groups.push({
+            label: "macOS - Intel Chip",
+            options: macIntelAssets.map((a: NormalizedAsset) => ({ name: a.name, url: a.url })),
+          });
+        }
+        if (linuxAssets.length > 0) {
+          groups.push({
+            label: "Linux",
+            options: linuxAssets.map((a: NormalizedAsset) => ({ name: a.name, url: a.url })),
+          });
+        }
+        setAssetGroups(groups);
 
-        // Choose default: match platform & architecture
-        const defaultAsset = sortedAssets.find(
+        // 4. Create a flat list of all assets for finding the default/onChange
+        const allSortedAssets = groups.flatMap(g => g.options);
+        setAssets(allSortedAssets);
+
+        // 5. Choose default asset
+        const defaultAsset = allSortedAssets.find(
           (a) =>
             a.name.toLowerCase().includes(platform) &&
-            a.name.toLowerCase().includes(architecture),
+            a.name.toLowerCase().includes(architecture)
         );
-        setSelectedAsset(defaultAsset || sortedAssets[0] || null);
-        console.log("Assets:", sortedAssets, data.assets);
+        setSelectedAsset(defaultAsset || allSortedAssets[0] || null);
       })
       .catch((err) => console.error("Failed to fetch releases:", err));
   }, [platform, architecture]);
@@ -140,10 +172,15 @@ export const Download = ({ dict }: any) => {
             }
           }}
         >
-          {assets.map((asset) => (
-            <option key={asset.url} value={asset.name}>
-              {asset.name}
-            </option>
+          {assetGroups.map((group) => (
+            <optgroup key={group.label} label={group.label}>
+              {/* Map over the options within each group */}
+              {group.options.map((asset) => (
+                <option key={asset.url} value={asset.name}>
+                  {asset.name}
+                </option>
+              ))}
+            </optgroup>
           ))}
         </select>
       </div>
