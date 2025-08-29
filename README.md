@@ -1,3 +1,2 @@
-## run with docker
-docker build -t freewayvpn .
-docker run -d -p 80:80 --name freewayvpn freewayvpn
+npm build
+sudo nohup env PORT=80 npm start > out.log 2>&1 &

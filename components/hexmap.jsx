@@ -302,6 +302,7 @@ const HexMap = () => {
         ) {
           if (Math.random() < selectionChance) {
             selectedHexes.push(child);
+            console.log("Selected hex for arc:", child.position)
           }
         }
       });

@@ -40,7 +40,7 @@ export const Download = ({ dict }: any) => {
 
     // Fetch latest release assets
     fetch(
-      "https://api.github.com/repos/gtz123456/freewayvpn_client/releases/latest",
+      "/releases",
     )
       .then((res) => res.json())
       .then((data) => {
