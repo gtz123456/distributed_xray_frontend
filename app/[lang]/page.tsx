@@ -18,7 +18,7 @@ export default async function Home({
 
   return (
     <section className="flex flex-col items-center justify-center gap-6 py-10 md:py-12 overflow-hidden">
-      <div className="inline-block max-w-xl text-center justify-center animate-fade-in">
+      <div className="inline-block max-w-xl text-center justify-center animate-fade-in z-10">
         <h1 className="text-4xl font-extrabold">
           {dict.defaultpage.welcome1}{" "}
           <span className="bg-gradient-to-r from-purple-500 via-blue-500 to-teal-400 text-transparent bg-clip-text">
@@ -31,7 +31,7 @@ export default async function Home({
         </p>
       </div>
 
-      <HexMap />
+      <HexMap/>
 
       <div className="flex gap-4 mt-4">
         <NextLink

@@ -33,10 +33,10 @@ const HexMap = () => {
 
     // 六边形网格参数
     const GRID_RESOLUTION_X =
-      window.innerWidth / 10 < 130
-      ? 130
-      : window.innerWidth / 10 > 180
-      ? 180
+      window.innerWidth / 10 < 110
+      ? 110
+      : window.innerWidth / 10 > 170
+      ? 170
       : window.innerWidth / 10;
     const GRID_RESOLUTION_Y = Math.floor(
       GRID_RESOLUTION_X * (VERTICAL_CURVE_ANGLE / HORIZONTAL_CURVE_ANGLE),
@@ -66,9 +66,13 @@ const HexMap = () => {
 
     const renderer = new THREE.WebGLRenderer({ antialias: true });
 
-    renderer.setSize(window.innerWidth, window.innerHeight / 2);
     renderer.setClearColor(0x0a0118);
-    camera.aspect = window.innerWidth / (window.innerHeight / 1.8); // 水平拉伸
+
+    const width = mountRef.current.clientWidth;
+    const height = Math.min(width*0.85, 600);
+
+    renderer.setSize(width, height);
+    camera.aspect = width / height / 1.1;
     camera.updateProjectionMatrix();
     mountRef.current.appendChild(renderer.domElement);
 
@@ -93,7 +97,7 @@ const HexMap = () => {
     // 球体中心辅助点
     const sphereCenter = new THREE.Vector3(0, 0, -SPHERE_RADIUS);
 
-    // --- 加载图片纹理 ---
+    // Texture
     const textureLoader = new THREE.TextureLoader();
     textureLoader.crossOrigin = "Anonymous";
 
@@ -113,15 +117,10 @@ const HexMap = () => {
       (xhr) => console.log((xhr.loaded / xhr.total) * 100 + "% loaded"),
       (error) => {
         console.error("Error loading texture:", error);
-        const errorDiv = document.createElement("div");
-        errorDiv.style.cssText =
-          "position:absolute;top:10px;left:10px;padding:10px;background:red;color:white;";
-        errorDiv.textContent = `Error loading map image. Check CORS policy or URL. See console for details. URL: ${MAP_IMAGE_URL}`;
-        document.body.appendChild(errorDiv);
       },
     );
 
-    // --- 六边形生成函数 ---
+    // create hexagon
     function createHexagonMap(context, imageWidth, imageHeight) {
       const imageData = context.getImageData(
         0,
@@ -204,10 +203,6 @@ const HexMap = () => {
           v: targetVerticalAngle,
         };
 
-        console.log(
-          `Searching for starting hex near angles: h=${targetAngles.h.toFixed(3)}, v=${targetAngles.v.toFixed(3)}`,
-        );
-
         hexGroup.children.forEach((hex) => {
           if (!hex.isMesh) return;
           const posRelCenter = hex.position.clone().sub(sphereCenter);
@@ -240,7 +235,7 @@ const HexMap = () => {
             "Starting ray animation from hex near target position:",
             startingHex.position,
           );
-          const arcTubeRadius = 0.2; // 可调整弧线管道的厚度
+          const arcTubeRadius = 0.25;
           rayAnimator = createArcLinesLogHeight(
             startingHex.position,
             hexGroup,
@@ -519,36 +514,41 @@ const HexMap = () => {
     };
     animate();
 
-    // --- 处理窗口大小调整 ---
     const onWindowResize = () => {
-      camera.aspect = window.innerWidth / window.innerHeight;
+      if (!mountRef.current) return;
+
+      const width = mountRef.current.clientWidth;
+      const height = Math.min(width*0.85, 600);
+
+      renderer.setSize(width, height);
+      camera.aspect = width / height / 1.1;
       camera.updateProjectionMatrix();
-      renderer.setSize(window.innerWidth, window.innerHeight / 2);
-      camera.aspect = window.innerWidth / (window.innerHeight / 1.8); // 水平拉伸
-      camera.updateProjectionMatrix();
-      mouseX = window.innerWidth / 2;
-      mouseY = window.innerHeight / 2;
     };
+
     window.addEventListener("resize", onWindowResize, false);
 
-    // --- 清理函数 ---
     return () => {
       cancelAnimationFrame(animationFrameId);
       window.removeEventListener("resize", onWindowResize, false);
       window.removeEventListener("mousemove", onMouseMove, false);
-      // 清除 Three.js 场景
+
       renderer.dispose();
       while (scene.children.length > 0) {
         scene.remove(scene.children[0]);
       }
-      // 移除渲染器 DOM 元素
+
       if (mountRef.current) {
         mountRef.current.removeChild(renderer.domElement);
       }
     };
   }, []);
 
-  return <div ref={mountRef} style={{ width: "100vw", height: "50vh" }} />;
+  return (
+    <div
+      ref={mountRef}
+      className="w-screen flex items-center justify-center"
+    />
+  );
 };
 
 export default HexMap;
