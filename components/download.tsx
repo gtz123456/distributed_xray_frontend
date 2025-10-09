@@ -44,10 +44,14 @@ export const Download = ({ dict }: any) => {
     )
       .then((res) => res.json())
       .then((data) => {
+        if (data.notice) {
+          alert(dict[data.notice]);
+        }
+
         const allAssets = data.assets.map(
-          (a: { name: string; browser_download_url: string }) => ({
+          (a: { name: string; url: string }) => ({
             name: a.name,
-            url: a.browser_download_url,
+            url: a.url,
           }),
         );
 
@@ -112,6 +116,8 @@ export const Download = ({ dict }: any) => {
           });
         }
         setAssetGroups(groups);
+
+        console.log("Asset Groups:", groups);
 
         // 4. Create a flat list of all assets for finding the default/onChange
         const allSortedAssets = groups.flatMap(g => g.options);

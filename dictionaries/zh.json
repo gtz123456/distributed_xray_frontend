@@ -14,7 +14,8 @@
     "iosComingSoon": "iOS (即将推出)",
     "androidComingSoon": "Android (即将推出)",
     "selectVersion": "选择版本：",
-    "downloadButton": "下载"
+    "downloadButton": "下载",
+    "A newer version may be publishing. Please refresh later for updates.": "可能有新版本正在发布，请稍后刷新以获取更新。"
   },
   "pricing": {
     "title": "定价",

@@ -14,7 +14,8 @@
     "iosComingSoon": "iOS (coming soon)",
     "androidComingSoon": "Android (coming soon)",
     "selectVersion": "Select your version:",
-    "downloadButton": "Download"
+    "downloadButton": "Download",
+    "A newer version may be publishing. Please refresh later for updates.": "A newer version may be publishing. Please refresh later for updates."
   },
   "pricing": {
     "title": "Pricing",
