@@ -39,8 +39,9 @@ export const Download = ({ dict }: any) => {
     }
 
     // Fetch latest release assets
+    const apiUrl = process.env.NEXT_PUBLIC_API_URL || "";
     fetch(
-      "/releases",
+      `${apiUrl}/releases`
     )
       .then((res) => res.json())
       .then((data) => {
