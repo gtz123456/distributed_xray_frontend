@@ -35,5 +35,106 @@
       "feature3": "Improved speed and reduced latency"
     },
     "note": "This is a non-profit VPN project committed to helping users bypass censorship and access free information. We offer a permanently free plan with speeds up to 10 Mbps, fast enough for smooth 1080p streaming and safe, uncensored communication. We strive to reduce costs via free-tier cloud services, but after the Beta phase, we may introduce paid premium plans to cover server expenses only."
+  },
+  "admin": {
+    "title": "Admin Panel",
+    "login": "Login",
+    "logout": "Logout",
+    "regkeyPlaceholder": "Enter admin REGKEY",
+    "loginFailed": "Invalid REGKEY",
+    "nav": {
+      "stats": "Overview",
+      "users": "Users",
+      "connections": "Connections",
+      "nodes": "Nodes",
+      "vouchers": "Vouchers"
+    },
+    "stats": {
+      "totalUsers": "Total Users",
+      "verifiedUsers": "Verified Users",
+      "premiumUsers": "Premium Users",
+      "onlineUsers": "Online Now",
+      "totalRevenue": "Total Revenue",
+      "totalTraffic": "Total Traffic Used"
+    },
+    "users": {
+      "title": "User Management",
+      "search": "Search by email",
+      "filterPlan": "Filter by plan",
+      "allPlans": "All Plans",
+      "email": "Email",
+      "plan": "Plan",
+      "traffic": "Traffic",
+      "balance": "Balance",
+      "planEnd": "Plan Ends",
+      "actions": "Actions",
+      "ban": "Ban",
+      "unban": "Unban",
+      "resetTraffic": "Reset Traffic",
+      "delete": "Delete",
+      "setPlan": "Set Plan",
+      "addBalance": "Add Balance",
+      "confirmBan": "Ban this user?",
+      "confirmDelete": "Permanently delete this user?",
+      "success": "Done",
+      "loadMore": "Load More"
+    },
+    "connections": {
+      "title": "Active Connections",
+      "uuid": "UUID",
+      "email": "Email",
+      "node": "Node",
+      "port": "Port",
+      "lastSeen": "Last Heartbeat",
+      "disconnect": "Kick",
+      "empty": "No active connections"
+    },
+    "nodes": {
+      "title": "Nodes",
+      "serviceId": "Service ID",
+      "ip": "IP",
+      "description": "Description",
+      "tags": "Tags",
+      "empty": "No nodes registered"
+    },
+    "vouchers": {
+      "title": "Vouchers",
+      "create": "Create Voucher",
+      "code": "Code",
+      "type": "Type",
+      "description": "Description",
+      "expires": "Expires",
+      "status": "Status",
+      "used": "Used",
+      "active": "Active",
+      "revoke": "Revoke",
+      "filterAll": "All",
+      "filterActive": "Active",
+      "filterUsed": "Used",
+      "planName": "Plan Name",
+      "planDuration": "Duration (months)",
+      "amount": "Amount (cents)",
+      "expiresAt": "Expires At",
+      "empty": "No vouchers found"
+    },
+    "setPlanModal": {
+      "title": "Set Plan",
+      "plan": "Plan",
+      "duration": "Duration (months)",
+      "confirm": "Confirm",
+      "cancel": "Cancel"
+    },
+    "addBalanceModal": {
+      "title": "Adjust Balance",
+      "amount": "Amount (cents, negative to deduct)",
+      "note": "Note",
+      "confirm": "Confirm",
+      "cancel": "Cancel"
+    },
+    "createVoucherModal": {
+      "title": "Create Voucher",
+      "confirm": "Create",
+      "cancel": "Cancel"
+    }
   }
 }

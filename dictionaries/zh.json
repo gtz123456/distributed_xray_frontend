@@ -35,5 +35,106 @@
       "feature3": "提升速度，降低延迟"
     },
     "note": "这是一个非营利的 VPN 项目，致力于帮助用户绕过审查，访问自由信息。我们提供一个永久免费的套餐，速度高达 10 Mbps，足以流畅播放 1080p 视频，并确保安全、无审查的通信。我们努力通过免费试用的云服务器来降低成本，但在测试阶段结束后，我们可能会推出付费高级套餐，仅用于覆盖服务器费用。"
+  },
+  "admin": {
+    "title": "管理后台",
+    "login": "登录",
+    "logout": "退出",
+    "regkeyPlaceholder": "输入管理员 REGKEY",
+    "loginFailed": "REGKEY 无效",
+    "nav": {
+      "stats": "总览",
+      "users": "用户",
+      "connections": "在线连接",
+      "nodes": "节点",
+      "vouchers": "兑换码"
+    },
+    "stats": {
+      "totalUsers": "总用户数",
+      "verifiedUsers": "已验证用户",
+      "premiumUsers": "高级用户",
+      "onlineUsers": "当前在线",
+      "totalRevenue": "总收入",
+      "totalTraffic": "总流量使用"
+    },
+    "users": {
+      "title": "用户管理",
+      "search": "按邮箱搜索",
+      "filterPlan": "按套餐筛选",
+      "allPlans": "全部套餐",
+      "email": "邮箱",
+      "plan": "套餐",
+      "traffic": "流量",
+      "balance": "余额",
+      "planEnd": "套餐到期",
+      "actions": "操作",
+      "ban": "封禁",
+      "unban": "解封",
+      "resetTraffic": "重置流量",
+      "delete": "删除",
+      "setPlan": "设置套餐",
+      "addBalance": "调整余额",
+      "confirmBan": "确认封禁该用户？",
+      "confirmDelete": "确认永久删除该用户？",
+      "success": "操作成功",
+      "loadMore": "加载更多"
+    },
+    "connections": {
+      "title": "在线连接",
+      "uuid": "UUID",
+      "email": "邮箱",
+      "node": "节点",
+      "port": "端口",
+      "lastSeen": "最近心跳",
+      "disconnect": "踢下线",
+      "empty": "当前无在线连接"
+    },
+    "nodes": {
+      "title": "节点列表",
+      "serviceId": "服务 ID",
+      "ip": "IP 地址",
+      "description": "描述",
+      "tags": "标签",
+      "empty": "暂无注册节点"
+    },
+    "vouchers": {
+      "title": "兑换码管理",
+      "create": "创建兑换码",
+      "code": "兑换码",
+      "type": "类型",
+      "description": "描述",
+      "expires": "过期时间",
+      "status": "状态",
+      "used": "已使用",
+      "active": "有效",
+      "revoke": "作废",
+      "filterAll": "全部",
+      "filterActive": "有效",
+      "filterUsed": "已用",
+      "planName": "套餐名称",
+      "planDuration": "时长（月）",
+      "amount": "金额（分）",
+      "expiresAt": "过期时间",
+      "empty": "暂无兑换码"
+    },
+    "setPlanModal": {
+      "title": "设置套餐",
+      "plan": "套餐",
+      "duration": "时长（月）",
+      "confirm": "确认",
+      "cancel": "取消"
+    },
+    "addBalanceModal": {
+      "title": "调整余额",
+      "amount": "金额（分，负数为扣款）",
+      "note": "备注",
+      "confirm": "确认",
+      "cancel": "取消"
+    },
+    "createVoucherModal": {
+      "title": "创建兑换码",
+      "confirm": "创建",
+      "cancel": "取消"
+    }
   }
 }
