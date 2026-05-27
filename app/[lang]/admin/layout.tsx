@@ -17,7 +17,6 @@ export default async function AdminLayout({
   params: Promise<{ lang: "en" | "zh" }>;
 }) {
   const { lang } = await params;
-  const dict: any = await getDictionary(lang);
 
   return (
     <html suppressHydrationWarning lang={lang}>
