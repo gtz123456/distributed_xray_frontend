@@ -47,7 +47,8 @@
       "users": "Users",
       "connections": "Connections",
       "nodes": "Nodes",
-      "vouchers": "Vouchers"
+      "vouchers": "Vouchers",
+      "cluster": "Cluster"
     },
     "stats": {
       "totalUsers": "Total Users",
@@ -116,6 +117,32 @@
       "amount": "Amount (cents)",
       "expiresAt": "Expires At",
       "empty": "No vouchers found"
+    },
+    "cluster": {
+      "title": "Cluster Management",
+      "node": "Node",
+      "online": "Online",
+      "offline": "Offline",
+      "cpu": "CPU",
+      "memory": "Memory",
+      "disk": "Disk",
+      "speedUp": "↑ Upload",
+      "speedDown": "↓ Download",
+      "traffic": "Traffic",
+      "connections": "Connections",
+      "totalUp": "Total Upload Speed",
+      "totalDown": "Total Download Speed",
+      "totalConns": "Total Connections",
+      "nodeCount": "Active Nodes",
+      "uuid": "UUID",
+      "email": "Email",
+      "port": "Port",
+      "upBytes": "Uploaded",
+      "downBytes": "Downloaded",
+      "empty": "No nodes found",
+      "refreshing": "Refreshing...",
+      "autoRefresh": "Auto Refresh",
+      "lastUpdated": "Last Updated"
     },
     "setPlanModal": {
       "title": "Set Plan",

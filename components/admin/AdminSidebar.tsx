@@ -15,6 +15,17 @@ const NAV_ITEMS: { key: Tab; icon: React.ReactNode }[] = [
     ),
   },
   {
+    key: "cluster",
+    icon: (
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8">
+        <circle cx="12" cy="5" r="3"/>
+        <circle cx="5" cy="19" r="3"/>
+        <circle cx="19" cy="19" r="3"/>
+        <path d="M12 8v4M12 12l-5 5M12 12l5 5" strokeLinecap="round"/>
+      </svg>
+    ),
+  },
+  {
     key: "users",
     icon: (
       <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8">

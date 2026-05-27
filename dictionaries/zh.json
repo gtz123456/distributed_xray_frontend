@@ -47,7 +47,8 @@
       "users": "用户",
       "connections": "在线连接",
       "nodes": "节点",
-      "vouchers": "兑换码"
+      "vouchers": "兑换码",
+      "cluster": "集群"
     },
     "stats": {
       "totalUsers": "总用户数",
@@ -116,6 +117,32 @@
       "amount": "金额（分）",
       "expiresAt": "过期时间",
       "empty": "暂无兑换码"
+    },
+    "cluster": {
+      "title": "集群管理",
+      "node": "节点",
+      "online": "在线",
+      "offline": "离线",
+      "cpu": "CPU",
+      "memory": "内存",
+      "disk": "磁盘",
+      "speedUp": "↑ 上传",
+      "speedDown": "↓ 下载",
+      "traffic": "流量",
+      "connections": "连接数",
+      "totalUp": "总上传速度",
+      "totalDown": "总下载速度",
+      "totalConns": "总连接数",
+      "nodeCount": "在线节点数",
+      "uuid": "UUID",
+      "email": "邮箱",
+      "port": "端口",
+      "upBytes": "已上传",
+      "downBytes": "已下载",
+      "empty": "暂无节点",
+      "refreshing": "刷新中...",
+      "autoRefresh": "自动刷新",
+      "lastUpdated": "上次更新"
     },
     "setPlanModal": {
       "title": "设置套餐",

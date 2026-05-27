@@ -8,8 +8,9 @@ import AdminUsers from "./AdminUsers";
 import AdminConnections from "./AdminConnections";
 import AdminNodes from "./AdminNodes";
 import AdminVouchers from "./AdminVouchers";
+import AdminCluster from "./AdminCluster";
 
-export type Tab = "stats" | "users" | "connections" | "nodes" | "vouchers";
+export type Tab = "stats" | "users" | "connections" | "nodes" | "vouchers" | "cluster";
 
 export default function AdminPanel({ dict, lang }: { dict: any; lang: string }) {
   const [regkey, setRegkey] = useState<string>("");
@@ -50,6 +51,7 @@ export default function AdminPanel({ dict, lang }: { dict: any; lang: string }) 
         {activeTab === "connections" && <AdminConnections dict={dict} regkey={regkey} />}
         {activeTab === "nodes" && <AdminNodes dict={dict} regkey={regkey} />}
         {activeTab === "vouchers" && <AdminVouchers dict={dict} regkey={regkey} />}
+        {activeTab === "cluster" && <AdminCluster dict={dict} regkey={regkey} />}
       </main>
     </div>
   );
