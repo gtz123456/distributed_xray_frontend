@@ -23,12 +23,12 @@ type ClusterNode = {
   mem_total: number;
   disk_used: number;
   disk_total: number;
-  net_up_speed: number;   // bytes/s
-  net_down_speed: number; // bytes/s
-  traffic_used: number;   // bytes
-  traffic_total: number;  // bytes
-  connections: number;
-  users: UserConn[];
+  bytes_up_per_sec: number;
+  bytes_down_per_sec: number;
+  traffic_used_bytes: number;
+  traffic_limit_bytes: number;
+  connection_count: number;
+  connections: UserConn[];
 };
 
 // ─── Helpers ────────────────────────────────────────────────────────────────
@@ -131,7 +131,7 @@ function SummaryCard({
 function NodeCard({ node, dict }: { node: ClusterNode; dict: any }) {
   const [expanded, setExpanded] = useState(false);
   const d = dict;
-  const trafficPct = pct(node.traffic_used, node.traffic_total);
+  const trafficPct = pct(node.traffic_used_bytes, node.traffic_limit_bytes);
   const trafficDanger = trafficPct > 80;
 
   return (
@@ -176,7 +176,7 @@ function NodeCard({ node, dict }: { node: ClusterNode; dict: any }) {
         {/* Connections badge */}
         <div className="flex-shrink-0 text-right">
           <div className="text-xs" style={{ color: "rgba(255,255,255,0.35)" }}>{d.connections}</div>
-          <div className="text-lg font-bold" style={{ color: "#a78bfa" }}>{node.connections}</div>
+          <div className="text-lg font-bold" style={{ color: "#a78bfa" }}>{node.connection_count || 0}</div>
         </div>
       </div>
 
@@ -213,17 +213,17 @@ function NodeCard({ node, dict }: { node: ClusterNode; dict: any }) {
       >
         <div className="flex-1 flex items-center gap-2">
           <span className="text-xs" style={{ color: "#4ade80" }}>{d.speedUp}</span>
-          <span className="text-sm font-semibold text-white">{formatSpeed(node.net_up_speed)}</span>
+          <span className="text-sm font-semibold text-white">{formatSpeed(node.bytes_up_per_sec || 0)}</span>
         </div>
         <div className="w-px" style={{ background: "rgba(255,255,255,0.08)" }} />
         <div className="flex-1 flex items-center gap-2">
           <span className="text-xs" style={{ color: "#60a5fa" }}>{d.speedDown}</span>
-          <span className="text-sm font-semibold text-white">{formatSpeed(node.net_down_speed)}</span>
+          <span className="text-sm font-semibold text-white">{formatSpeed(node.bytes_down_per_sec || 0)}</span>
         </div>
       </div>
 
       {/* Traffic bar */}
-      {node.traffic_total > 0 && (
+      {node.traffic_limit_bytes > 0 && (
         <div className="px-5 mb-3">
           <div className="flex justify-between items-center mb-1">
             <span className="text-xs" style={{ color: "rgba(255,255,255,0.45)" }}>{d.traffic}</span>
@@ -231,7 +231,7 @@ function NodeCard({ node, dict }: { node: ClusterNode; dict: any }) {
               className="text-xs font-medium"
               style={{ color: trafficDanger ? "#f87171" : "rgba(255,255,255,0.7)" }}
             >
-              {formatBytes(node.traffic_used)} / {formatBytes(node.traffic_total)} ({trafficPct}%)
+              {formatBytes(node.traffic_used_bytes)} / {formatBytes(node.traffic_limit_bytes)} ({trafficPct}%)
             </span>
           </div>
           <div
@@ -252,7 +252,7 @@ function NodeCard({ node, dict }: { node: ClusterNode; dict: any }) {
       )}
 
       {/* User connections toggle */}
-      {node.users && node.users.length > 0 && (
+      {node.connections && node.connections.length > 0 && (
         <div className="border-t" style={{ borderColor: "rgba(255,255,255,0.06)" }}>
           <button
             className="w-full flex items-center justify-between px-5 py-3 text-xs font-medium transition-colors hover:bg-white/[0.02]"
@@ -260,7 +260,7 @@ function NodeCard({ node, dict }: { node: ClusterNode; dict: any }) {
             onClick={() => setExpanded((v) => !v)}
           >
             <span>
-              {d.connections} ({node.users.length})
+              {d.connections} ({node.connections.length})
             </span>
             <svg
               width="14"
@@ -293,7 +293,7 @@ function NodeCard({ node, dict }: { node: ClusterNode; dict: any }) {
                   </tr>
                 </thead>
                 <tbody>
-                  {node.users.map((u) => (
+                  {node.connections.map((u) => (
                     <tr
                       key={u.uuid}
                       className="hover:bg-white/[0.02] transition-colors"
@@ -376,9 +376,9 @@ export default function AdminCluster({ dict, regkey }: { dict: any; regkey: stri
 
   // ── Summaries ──────────────────────────────────────────────────────────
   const onlineNodes = nodes.filter((n) => n.online);
-  const totalConns = nodes.reduce((s, n) => s + n.connections, 0);
-  const totalUp = nodes.reduce((s, n) => s + n.net_up_speed, 0);
-  const totalDown = nodes.reduce((s, n) => s + n.net_down_speed, 0);
+  const totalConns = nodes.reduce((s, n) => s + (n.connection_count || 0), 0);
+  const totalUp = nodes.reduce((s, n) => s + (n.bytes_up_per_sec || 0), 0);
+  const totalDown = nodes.reduce((s, n) => s + (n.bytes_down_per_sec || 0), 0);
 
   const formatTime = (date: Date | null) => {
     if (!date) return "—";
