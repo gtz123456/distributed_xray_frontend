@@ -180,7 +180,7 @@ export default function AdminUsers({ dict, regkey }: { dict: any; regkey: string
                   ${(u.balance / 100).toFixed(2)}
                 </td>
                 <td className={tdClass} style={{ color: "rgba(255,255,255,0.5)", fontSize: 12 }}>
-                  {new Date(u.plan_end).toLocaleDateString()}
+                  {new Date(u.plan_end).toLocaleDateString(undefined, { timeZone: 'UTC' })}
                 </td>
                 <td className={tdClass}>
                   <div className="flex gap-1 flex-wrap">

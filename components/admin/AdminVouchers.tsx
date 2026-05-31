@@ -148,8 +148,10 @@ export default function AdminVouchers({ dict, regkey }: { dict: any; regkey: str
                   <td className="px-4 py-3 text-sm" style={{ color: "rgba(255,255,255,0.6)" }}>
                     {v.Description || "—"}
                   </td>
-                  <td className="px-4 py-3 text-xs" style={{ color: "rgba(255,255,255,0.4)" }}>
-                    {new Date(v.ExpiresAt).toLocaleDateString()}
+                  <td className="px-4 py-3 text-xs">
+                    <div className="text-white text-sm">
+                      {new Date(v.ExpiresAt).toLocaleDateString(undefined, { timeZone: 'UTC' })}
+                    </div>
                   </td>
                   <td className="px-4 py-3">
                     <span className="px-2 py-0.5 rounded-full text-xs"
