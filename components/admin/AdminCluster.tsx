@@ -442,7 +442,7 @@ export default function AdminCluster({ dict, regkey }: { dict: any; regkey: stri
                 strokeLinejoin="round"
               />
             </svg>
-            {refreshing ? d.refreshing : "↺"}
+            {refreshing && d.refreshing}
           </button>
         </div>
       </div>
