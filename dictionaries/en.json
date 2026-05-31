@@ -147,7 +147,14 @@
     "setPlanModal": {
       "title": "Set Plan",
       "plan": "Plan",
-      "duration": "Duration (months)",
+      "actionModify": "Modify Duration",
+      "actionSet": "Set Exact Date",
+      "amount": "Amount",
+      "unit": "Unit",
+      "unitDays": "Days",
+      "unitMonths": "Months",
+      "unitYears": "Years",
+      "exactDate": "Exact End Date",
       "confirm": "Confirm",
       "cancel": "Cancel"
     },

@@ -147,7 +147,14 @@
     "setPlanModal": {
       "title": "设置套餐",
       "plan": "套餐",
-      "duration": "时长（月）",
+      "actionModify": "修改时长",
+      "actionSet": "设定确切日期",
+      "amount": "数量 (可为负)",
+      "unit": "单位",
+      "unitDays": "天",
+      "unitMonths": "月",
+      "unitYears": "年",
+      "exactDate": "确切到期日期",
       "confirm": "确认",
       "cancel": "取消"
     },

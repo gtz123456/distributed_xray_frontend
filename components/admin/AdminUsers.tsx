@@ -57,7 +57,7 @@ export default function AdminUsers({ dict, regkey }: { dict: any; regkey: string
   // Modals
   const [setPlanUser, setSetPlanUser] = useState<User | null>(null);
   const [balanceUser, setBalanceUser] = useState<User | null>(null);
-  const [setPlanVal, setSetPlanVal] = useState({ plan: "Premium plan", duration: 1 });
+  const [setPlanVal, setSetPlanVal] = useState({ plan: "Premium plan", action: "add", delta_amount: 1, delta_unit: "months", end_date: new Date().toISOString().split('T')[0] });
   const [balanceVal, setBalanceVal] = useState({ amount: 0, note: "" });
 
   const fetchUsers = useCallback(
@@ -185,7 +185,7 @@ export default function AdminUsers({ dict, regkey }: { dict: any; regkey: string
                 <td className={tdClass}>
                   <div className="flex gap-1 flex-wrap">
                     <button
-                      onClick={() => { setSetPlanUser(u); setSetPlanVal({ plan: "Premium plan", duration: 1 }); }}
+                      onClick={() => { setSetPlanUser(u); setSetPlanVal({ plan: "Premium plan", action: "add", delta_amount: 1, delta_unit: "months", end_date: new Date().toISOString().split('T')[0] }); }}
                       className={btnClass}
                       style={{ background: "rgba(124,58,237,0.2)", color: "#a78bfa" }}
                     >{d.setPlan}</button>
@@ -245,21 +245,53 @@ export default function AdminUsers({ dict, regkey }: { dict: any; regkey: string
             <select
               value={setPlanVal.plan}
               onChange={(e) => setSetPlanVal((v) => ({ ...v, plan: e.target.value }))}
-              className="rounded-lg px-3 py-2 text-sm text-white"
+              className="rounded-lg px-3 py-2 text-sm text-white outline-none"
               style={{ background: "rgba(255,255,255,0.07)", border: "1px solid rgba(255,255,255,0.15)" }}
             >
               <option value="Free plan">Free plan</option>
               <option value="Premium plan">Premium plan</option>
             </select>
-            <input
-              type="number"
-              min={1}
-              value={setPlanVal.duration}
-              onChange={(e) => setSetPlanVal((v) => ({ ...v, duration: Number(e.target.value) }))}
-              placeholder={dict.setPlanModal.duration}
-              className="rounded-lg px-3 py-2 text-sm text-white"
+            
+            <select
+              value={setPlanVal.action}
+              onChange={(e) => setSetPlanVal((v) => ({ ...v, action: e.target.value }))}
+              className="rounded-lg px-3 py-2 text-sm text-white outline-none"
               style={{ background: "rgba(255,255,255,0.07)", border: "1px solid rgba(255,255,255,0.15)" }}
-            />
+            >
+              <option value="add">{dict.setPlanModal.actionModify || "Modify Duration"}</option>
+              <option value="set">{dict.setPlanModal.actionSet || "Set Exact Date"}</option>
+            </select>
+
+            {setPlanVal.action === "add" ? (
+              <div className="flex gap-2">
+                <input
+                  type="number"
+                  value={setPlanVal.delta_amount}
+                  onChange={(e) => setSetPlanVal((v) => ({ ...v, delta_amount: Number(e.target.value) }))}
+                  placeholder={dict.setPlanModal.amount || "Amount"}
+                  className="rounded-lg px-3 py-2 text-sm text-white outline-none flex-1"
+                  style={{ background: "rgba(255,255,255,0.07)", border: "1px solid rgba(255,255,255,0.15)" }}
+                />
+                <select
+                  value={setPlanVal.delta_unit}
+                  onChange={(e) => setSetPlanVal((v) => ({ ...v, delta_unit: e.target.value }))}
+                  className="rounded-lg px-3 py-2 text-sm text-white outline-none w-28"
+                  style={{ background: "rgba(255,255,255,0.07)", border: "1px solid rgba(255,255,255,0.15)" }}
+                >
+                  <option value="days">{dict.setPlanModal.unitDays || "Days"}</option>
+                  <option value="months">{dict.setPlanModal.unitMonths || "Months"}</option>
+                  <option value="years">{dict.setPlanModal.unitYears || "Years"}</option>
+                </select>
+              </div>
+            ) : (
+              <input
+                type="date"
+                value={setPlanVal.end_date}
+                onChange={(e) => setSetPlanVal((v) => ({ ...v, end_date: e.target.value }))}
+                className="rounded-lg px-3 py-2 text-sm text-white outline-none"
+                style={{ background: "rgba(255,255,255,0.07)", border: "1px solid rgba(255,255,255,0.15)", colorScheme: "dark" }}
+              />
+            )}
             <div className="flex gap-2 justify-end">
               <button onClick={() => setSetPlanUser(null)} className="px-4 py-2 rounded-xl text-sm text-gray-400">
                 {dict.setPlanModal.cancel}
