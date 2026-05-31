@@ -9,28 +9,14 @@ export const Logo: React.FC<IconSvgProps> = ({
   height,
   ...props
 }) => (
-  <svg
-    width="30"
-    height="30"
-    viewBox="0 0 24 24"
-    fill="none"
-    xmlns="http://www.w3.org/2000/svg"
-  >
-    <path
-      d="M12 2L3 6V11C3 17 7 21 12 22C17 21 21 17 21 11V6L12 2Z"
-      stroke="url(#gradient)"
-      strokeWidth="2"
-      fill="none"
-    />
-
-    <defs>
-      <linearGradient id="gradient" x1="3" y1="2" x2="21" y2="22" gradientUnits="userSpaceOnUse">
-        <stop stopColor="#8B5CF6"/>
-        <stop offset="1" stopColor="#06B6D4"/>
-      </linearGradient>
-    </defs>
-  </svg>
-
+  <img 
+    src="/icon.png" 
+    alt="Logo" 
+    width={width || size} 
+    height={height || size} 
+    style={{ borderRadius: '20%' }}
+    {...(props as any)}
+  />
 );
 
 export const DiscordIcon: React.FC<IconSvgProps> = ({
