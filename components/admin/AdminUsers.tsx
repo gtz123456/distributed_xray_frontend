@@ -304,7 +304,10 @@ export default function AdminUsers({ dict, regkey }: { dict: any; regkey: string
               </button>
               <button
                 onClick={async () => {
-                  await action(`/admin/user/${balanceUser.uuid}/addbalance`, "POST", balanceVal);
+                  await action(`/admin/user/${balanceUser.uuid}/addbalance`, "POST", {
+                    ...balanceVal,
+                    amount: balanceVal.amount * 100
+                  });
                   setBalanceUser(null);
                 }}
                 className="px-4 py-2 rounded-xl text-sm font-medium text-white"

@@ -42,6 +42,6 @@ export function middleware(request) {
 
 export const config = {
   matcher: [
-    '/((?!api|_next/|admin/stats|admin/cluster|admin/users|admin/nodes|admin/connections|admin/vouchers|generatevoucher|signup|login|logout|user|realitykey|servers|version|releases/|connect|heartbeat|traffic|payment|subscribe|redeem|downloads/|.*\\.(?:ico|png|jpg|jpeg|svg|webp|txt|xml|json|webmanifest)).*)',
+    '/((?!api|_next/|admin/stats|admin/cluster|admin/users|admin/user/|admin/nodes|admin/connections|admin/vouchers|generatevoucher|signup|login|logout|user|realitykey|servers|version|releases/|connect|heartbeat|traffic|payment|subscribe|redeem|downloads/|.*\\.(?:ico|png|jpg|jpeg|svg|webp|txt|xml|json|webmanifest)).*)',
   ],
 };
