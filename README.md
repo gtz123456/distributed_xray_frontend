@@ -13,7 +13,7 @@ http {
         listen 80; 
         
         # All backend API routes → webservice:8004
-        location ~* "^/(?:[a-z]{2}/)?(admin/(?:stats|cluster|users|user/|nodes|connections|vouchers|disconnect)|generatevoucher|signup|login|logout|user|realitykey|servers|version|releases|connect|heartbeat|traffic|payment|subscribe|redeem)(/.*)?$" {
+        location ~* "^/(?:[a-z]{2}/)?(admin/(?:stats|cluster|users|user|nodes|connections|vouchers|disconnect)|generatevoucher|signup|login|logout|user|realitykey|servers|version|releases|connect|heartbeat|traffic|payment|subscribe|redeem)(/.*)?$" {
             rewrite "^/(?:[a-z]{2}/)?(.*)$" /$1 break;
             proxy_pass http://127.0.0.1:8004;
         }
