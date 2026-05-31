@@ -206,22 +206,6 @@ function NodeCard({ node, dict }: { node: ClusterNode; dict: any }) {
         />
       </div>
 
-      {/* Speed row */}
-      <div
-        className="mx-5 mb-3 rounded-xl px-4 py-2.5 flex gap-4"
-        style={{ background: "rgba(255,255,255,0.03)", border: "1px solid rgba(255,255,255,0.05)" }}
-      >
-        <div className="flex-1 flex items-center gap-2">
-          <span className="text-xs" style={{ color: "#4ade80" }}>{d.speedUp}</span>
-          <span className="text-sm font-semibold text-white">{formatSpeed(node.bytes_up_per_sec || 0)}</span>
-        </div>
-        <div className="w-px" style={{ background: "rgba(255,255,255,0.08)" }} />
-        <div className="flex-1 flex items-center gap-2">
-          <span className="text-xs" style={{ color: "#60a5fa" }}>{d.speedDown}</span>
-          <span className="text-sm font-semibold text-white">{formatSpeed(node.bytes_down_per_sec || 0)}</span>
-        </div>
-      </div>
-
       {/* Traffic bar */}
       {node.traffic_limit_bytes > 0 && (
         <div className="px-5 mb-3">
@@ -250,6 +234,22 @@ function NodeCard({ node, dict }: { node: ClusterNode; dict: any }) {
           </div>
         </div>
       )}
+
+      {/* Speed row */}
+      <div
+        className="mx-5 mb-3 rounded-xl px-4 py-2.5 flex gap-4"
+        style={{ background: "rgba(255,255,255,0.03)", border: "1px solid rgba(255,255,255,0.05)" }}
+      >
+        <div className="flex-1 flex items-center gap-2">
+          <span className="text-xs" style={{ color: "#4ade80" }}>{d.speedUp}</span>
+          <span className="text-sm font-semibold text-white">{formatSpeed(node.bytes_up_per_sec || 0)}</span>
+        </div>
+        <div className="w-px" style={{ background: "rgba(255,255,255,0.08)" }} />
+        <div className="flex-1 flex items-center gap-2">
+          <span className="text-xs" style={{ color: "#60a5fa" }}>{d.speedDown}</span>
+          <span className="text-sm font-semibold text-white">{formatSpeed(node.bytes_down_per_sec || 0)}</span>
+        </div>
+      </div>
 
       {/* User connections toggle */}
       {node.connections && node.connections.length > 0 && (

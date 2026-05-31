@@ -15,7 +15,7 @@ export const LanguageSwitch = () => {
       document.cookie = `NEXT_LOCALE=${lang}; path=/; max-age=31536000`;
       
       const newPath = pathname.replace(`/${currentLang}`, `/${lang}`);
-      router.push(newPath);
+      window.location.href = newPath; // Force full page reload to avoid client-side crashes
     }
     setIsOpen(false);
   };
