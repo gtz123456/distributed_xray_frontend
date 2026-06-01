@@ -2,6 +2,7 @@
 
 import { Tab } from "./AdminPanel";
 import { LanguageSwitch } from "@/components/language-switch";
+import { Logo } from "@/components/icons";
 
 const NAV_ITEMS: { key: Tab; icon: React.ReactNode }[] = [
   {
@@ -89,14 +90,7 @@ export default function AdminSidebar({
     >
       {/* Brand */}
       <div className="flex items-center gap-3 px-3 mb-8">
-        <div
-          className="w-8 h-8 rounded-lg flex items-center justify-center flex-shrink-0"
-          style={{ background: "linear-gradient(135deg, #7c3aed, #2563eb)" }}
-        >
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
-            <path d="M12 2L3 7v10l9 5 9-5V7L12 2z" stroke="white" strokeWidth="1.8" strokeLinejoin="round" />
-          </svg>
-        </div>
+        <Logo size={32} />
         <span className="font-bold text-white text-sm">{dict.title}</span>
       </div>
 
@@ -125,7 +119,7 @@ export default function AdminSidebar({
 
       {/* Bottom */}
       <div className="flex flex-col gap-2 pt-4 border-t border-purple-900/20">
-        <LanguageSwitch />
+        <LanguageSwitch lang={lang} />
         <button
           id="admin-logout-btn"
           onClick={onLogout}
