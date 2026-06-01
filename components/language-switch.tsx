@@ -3,12 +3,12 @@
 import { usePathname, useRouter } from "next/navigation";
 import { useState, useRef, useEffect } from "react";
 
-export const LanguageSwitch = () => {
-  const pathname = usePathname(); // TODO: bug 
+export const LanguageSwitch = ({ lang }: { lang?: string }) => {
+  const pathname = usePathname(); 
   const router = useRouter();
   const [isOpen, setIsOpen] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
-  const currentLang = pathname.split('/')[1];
+  const currentLang = lang || pathname.split('/')[1];
 
   const switchLanguage = (lang: string) => {
     if (lang !== currentLang) {

@@ -59,7 +59,7 @@ export const Navbar = ({dict, lang}: { dict: any, lang: string }) => {
           <Link isExternal aria-label="Github" href={siteConfig.links.github}>
             <GithubIcon className="text-default-500" />
           </Link>
-          <LanguageSwitch />
+          <LanguageSwitch lang={lang} />
         </NavbarItem>
         <NavbarMenuToggle className="lg:hidden"/>
       </NavbarContent>
@@ -68,7 +68,7 @@ export const Navbar = ({dict, lang}: { dict: any, lang: string }) => {
         <Link isExternal aria-label="Github" href={siteConfig.links.github}>
           <GithubIcon className="text-default-500" />
         </Link>
-        <LanguageSwitch />
+        <LanguageSwitch lang={lang} />
         <NavbarMenuToggle />
       </NavbarContent>
 
