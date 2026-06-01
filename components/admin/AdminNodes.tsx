@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import TerminalModal from "./TerminalModal";
 
 type Node = {
   service_id: string;
@@ -13,6 +14,7 @@ export default function AdminNodes({ dict, regkey }: { dict: any; regkey: string
   const d = dict.nodes;
   const [nodes, setNodes] = useState<Node[]>([]);
   const [loading, setLoading] = useState(true);
+  const [shellNode, setShellNode] = useState<string | null>(null);
 
   useEffect(() => {
     fetch(`${process.env.NEXT_PUBLIC_API_URL || ""}/admin/nodes`, {
@@ -38,7 +40,7 @@ export default function AdminNodes({ dict, regkey }: { dict: any; regkey: string
           <table className="w-full">
             <thead>
               <tr style={{ borderBottom: "1px solid rgba(255,255,255,0.07)" }}>
-                {[d.ip, d.description, d.tags, d.serviceId].map((h) => (
+                {[d.ip, d.description, d.tags, d.serviceId, "Actions"].map((h) => (
                   <th key={h} className="px-4 py-3 text-left text-xs font-medium uppercase tracking-wider"
                     style={{ color: "rgba(255,255,255,0.35)" }}>
                     {h}
@@ -72,12 +74,28 @@ export default function AdminNodes({ dict, regkey }: { dict: any; regkey: string
                   <td className="px-4 py-3 text-xs font-mono" style={{ color: "rgba(255,255,255,0.35)" }}>
                     {n.service_id}
                   </td>
+                  <td className="px-4 py-3 text-right">
+                    <button
+                      onClick={() => setShellNode(n.service_id)}
+                      className="px-3 py-1 bg-white/5 hover:bg-white/10 border border-white/10 rounded-md text-xs font-medium text-white transition-colors"
+                    >
+                      Shell
+                    </button>
+                  </td>
                 </tr>
               ))}
             </tbody>
           </table>
         )}
       </div>
+
+      {shellNode && (
+        <TerminalModal
+          serviceId={shellNode}
+          regkey={regkey}
+          onClose={() => setShellNode(null)}
+        />
+      )}
     </div>
   );
 }
