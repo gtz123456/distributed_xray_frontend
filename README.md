@@ -16,6 +16,10 @@ http {
         location ~* "^/(?:[a-z]{2}/)?(admin/(?:stats|cluster|users|user|nodes|connections|vouchers|disconnect)|generatevoucher|signup|login|logout|user|realitykey|servers|version|releases|connect|heartbeat|traffic|payment|subscribe|redeem)(/.*)?$" {
             rewrite "^/(?:[a-z]{2}/)?(.*)$" /$1 break;
             proxy_pass http://127.0.0.1:8004;
+            
+            # WebSocket support for node shell
+            proxy_set_header Upgrade $http_upgrade;
+            proxy_set_header Connection "upgrade";
         }
 
         location /downloads/ {
