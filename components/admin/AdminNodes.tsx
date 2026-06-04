@@ -62,14 +62,25 @@ export default function AdminNodes({ dict, regkey }: { dict: any; regkey: string
                     {n.description || "—"}
                   </td>
                   <td className="px-4 py-3">
-                    <div className="flex gap-1 flex-wrap">
-                      {(n.tags || []).map((tag) => (
-                        <span key={tag} className="px-2 py-0.5 rounded-full text-xs"
-                          style={{ background: "rgba(59,130,246,0.2)", color: "#60a5fa" }}>
-                          {tag}
-                        </span>
-                      ))}
-                    </div>
+                    {n.tags && n.tags.length > 0 ? (
+                      <div className="group relative inline-block">
+                        <div className="px-2 py-1 rounded-md text-xs cursor-default flex items-center gap-1 transition-colors hover:bg-blue-500/30"
+                             style={{ background: "rgba(59,130,246,0.2)", color: "#60a5fa" }}>
+                          {n.tags.length} Unlocked <span style={{ fontSize: '0.6rem', opacity: 0.7 }}>▼</span>
+                        </div>
+                        <div className="absolute left-0 top-full mt-2 hidden group-hover:flex flex-col gap-1.5 p-2 rounded-lg shadow-xl z-50 min-w-[140px] max-h-60 overflow-y-auto scrollbar-thin scrollbar-thumb-white/10"
+                             style={{ background: "#111827", border: "1px solid rgba(255,255,255,0.1)" }}>
+                          {[...n.tags].sort((a, b) => a.localeCompare(b)).map((tag) => (
+                            <span key={tag} className="px-2 py-1 rounded text-xs text-center border border-white/5"
+                              style={{ background: "rgba(255,255,255,0.03)", color: "rgba(255,255,255,0.8)" }}>
+                              {tag}
+                            </span>
+                          ))}
+                        </div>
+                      </div>
+                    ) : (
+                      <span className="text-xs" style={{ color: "rgba(255,255,255,0.3)" }}>—</span>
+                    )}
                   </td>
                   <td className="px-4 py-3 text-xs font-mono" style={{ color: "rgba(255,255,255,0.35)" }}>
                     {n.service_id}
