@@ -146,16 +146,8 @@ function NodeCard({ node, dict }: { node: ClusterNode; dict: any }) {
       <div className="flex items-start gap-3 px-5 pt-5 pb-3">
         <div className="flex-1 min-w-0">
           <div className="flex items-center gap-2 flex-wrap">
-            <span className="font-bold text-white text-base">{node.public_ip}</span>
-            <span
-              className="px-2 py-0.5 rounded-full text-xs font-medium"
-              style={
-                node.online
-                  ? { background: "rgba(34,197,94,0.15)", color: "#4ade80" }
-                  : { background: "rgba(239,68,68,0.15)", color: "#f87171" }
-              }
-            >
-              {node.online ? d.online : d.offline}
+            <span className="font-bold text-white text-base">
+              {node.description || node.public_ip}
             </span>
             {(node.tags ?? []).map((tag) => (
               <span
@@ -168,8 +160,8 @@ function NodeCard({ node, dict }: { node: ClusterNode; dict: any }) {
             ))}
           </div>
           {node.description && (
-            <p className="text-xs mt-1 truncate" style={{ color: "rgba(255,255,255,0.4)" }}>
-              {node.description}
+            <p className="text-xs mt-1 truncate font-mono" style={{ color: "rgba(255,255,255,0.4)" }}>
+              {node.public_ip}
             </p>
           )}
         </div>
