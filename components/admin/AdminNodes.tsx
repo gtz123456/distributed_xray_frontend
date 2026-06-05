@@ -37,7 +37,7 @@ export default function AdminNodes({
     <div>
       <h1 className="text-2xl font-bold text-white mb-6">{d.title}</h1>
       <div
-        className="rounded-2xl overflow-hidden"
+        className="rounded-2xl overflow-visible"
         style={{
           background: "rgba(255,255,255,0.03)",
           border: "1px solid rgba(255,255,255,0.07)",

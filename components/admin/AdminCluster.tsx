@@ -148,7 +148,7 @@ function NodeCard({ node, dict }: { node: ClusterNode; dict: any }) {
 
   return (
     <div
-      className="rounded-2xl overflow-hidden transition-all duration-200"
+      className="rounded-2xl overflow-visible transition-all duration-200"
       style={{
         background: "rgba(255,255,255,0.03)",
         border: `1px solid ${node.online ? "rgba(124,58,237,0.2)" : "rgba(255,255,255,0.07)"}`,
