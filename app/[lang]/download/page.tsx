@@ -1,6 +1,4 @@
-import { title } from "@/components/primitives";
 import { Download } from "@/components/download";
-
 import { getDictionary } from "@/app/[lang]/dictionaries";
 
 export default async function DownloadPage({

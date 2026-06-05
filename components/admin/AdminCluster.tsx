@@ -38,6 +38,7 @@ function formatBytes(bytes: number): string {
   if (bytes < 1024 ** 2) return `${(bytes / 1024).toFixed(1)} KB`;
   if (bytes < 1024 ** 3) return `${(bytes / 1024 ** 2).toFixed(1)} MB`;
   if (bytes < 1024 ** 4) return `${(bytes / 1024 ** 3).toFixed(1)} GB`;
+
   return `${(bytes / 1024 ** 4).toFixed(1)} TB`;
 }
 
@@ -47,6 +48,7 @@ function formatSpeed(bytesPerSec: number): string {
 
 function pct(used: number, total: number): number {
   if (!total) return 0;
+
   return Math.min(100, Math.round((used / total) * 100));
 }
 
@@ -79,7 +81,10 @@ function MetricBar({
         <span className="text-xs" style={{ color: "rgba(255,255,255,0.45)" }}>
           {label}
         </span>
-        <span className="text-xs font-medium" style={{ color: isDanger ? "#f87171" : "rgba(255,255,255,0.7)" }}>
+        <span
+          className="text-xs font-medium"
+          style={{ color: isDanger ? "#f87171" : "rgba(255,255,255,0.7)" }}
+        >
           {unit ?? `${p}%`}
         </span>
       </div>
@@ -110,7 +115,10 @@ function SummaryCard({
   return (
     <div
       className="flex-1 min-w-0 rounded-2xl p-4 flex items-center gap-3"
-      style={{ background: "rgba(255,255,255,0.03)", border: "1px solid rgba(255,255,255,0.07)" }}
+      style={{
+        background: "rgba(255,255,255,0.03)",
+        border: "1px solid rgba(255,255,255,0.07)",
+      }}
     >
       <div
         className="w-10 h-10 rounded-xl flex items-center justify-center flex-shrink-0"
@@ -119,7 +127,10 @@ function SummaryCard({
         {icon}
       </div>
       <div className="min-w-0">
-        <div className="text-xs truncate" style={{ color: "rgba(255,255,255,0.45)" }}>
+        <div
+          className="text-xs truncate"
+          style={{ color: "rgba(255,255,255,0.45)" }}
+        >
           {label}
         </div>
         <div className="text-lg font-bold text-white truncate">{value}</div>
@@ -152,24 +163,46 @@ function NodeCard({ node, dict }: { node: ClusterNode; dict: any }) {
             </span>
             {node.tags && node.tags.length > 0 && (
               <div className="relative inline-block">
-                <div 
+                {/* eslint-disable-next-line jsx-a11y/click-events-have-key-events, jsx-a11y/no-static-element-interactions */}
+                <div
                   className="px-2 py-0.5 rounded-md text-xs cursor-pointer flex items-center gap-1 transition-colors hover:bg-blue-500/30"
-                  style={{ background: "rgba(59,130,246,0.2)", color: "#60a5fa" }}
+                  style={{
+                    background: "rgba(59,130,246,0.2)",
+                    color: "#60a5fa",
+                  }}
                   onClick={() => setTagsOpen(!tagsOpen)}
                 >
-                  {node.tags.length} Unlocked <span style={{ fontSize: '0.6rem', opacity: 0.7 }}>▼</span>
+                  {node.tags.length} Unlocked{" "}
+                  <span style={{ fontSize: "0.6rem", opacity: 0.7 }}>▼</span>
                 </div>
                 {tagsOpen && (
                   <>
-                    <div className="fixed inset-0 z-40" onClick={() => setTagsOpen(false)} />
-                    <div className="absolute left-0 top-full mt-2 flex flex-col gap-1.5 p-2 rounded-lg shadow-xl z-50 min-w-[140px] max-h-60 overflow-y-auto scrollbar-thin scrollbar-thumb-white/10"
-                         style={{ background: "#111827", border: "1px solid rgba(255,255,255,0.1)" }}>
-                      {[...node.tags].sort((a, b) => a.localeCompare(b)).map((tag) => (
-                        <span key={tag} className="px-2 py-1 rounded text-xs text-center border border-white/5"
-                          style={{ background: "rgba(255,255,255,0.03)", color: "rgba(255,255,255,0.8)" }}>
-                          {tag}
-                        </span>
-                      ))}
+                    {/* eslint-disable-next-line jsx-a11y/click-events-have-key-events, jsx-a11y/no-static-element-interactions */}
+                    <div
+                      className="fixed inset-0 z-40"
+                      onClick={() => setTagsOpen(false)}
+                    />
+                    <div
+                      className="absolute left-0 top-full mt-2 flex flex-col gap-1.5 p-2 rounded-lg shadow-xl z-50 min-w-[140px] max-h-60 overflow-y-auto scrollbar-thin scrollbar-thumb-white/10"
+                      style={{
+                        background: "#111827",
+                        border: "1px solid rgba(255,255,255,0.1)",
+                      }}
+                    >
+                      {[...node.tags]
+                        .sort((a, b) => a.localeCompare(b))
+                        .map((tag) => (
+                          <span
+                            key={tag}
+                            className="px-2 py-1 rounded text-xs text-center border border-white/5"
+                            style={{
+                              background: "rgba(255,255,255,0.03)",
+                              color: "rgba(255,255,255,0.8)",
+                            }}
+                          >
+                            {tag}
+                          </span>
+                        ))}
                     </div>
                   </>
                 )}
@@ -177,41 +210,48 @@ function NodeCard({ node, dict }: { node: ClusterNode; dict: any }) {
             )}
           </div>
           {node.description && (
-            <p className="text-xs mt-1 truncate font-mono" style={{ color: "rgba(255,255,255,0.4)" }}>
+            <p
+              className="text-xs mt-1 truncate font-mono"
+              style={{ color: "rgba(255,255,255,0.4)" }}
+            >
               {node.public_ip}
             </p>
           )}
         </div>
         {/* Connections badge */}
         <div className="flex-shrink-0 text-right">
-          <div className="text-xs" style={{ color: "rgba(255,255,255,0.35)" }}>{d.connections}</div>
-          <div className="text-lg font-bold" style={{ color: "#a78bfa" }}>{node.connection_count || 0}</div>
+          <div className="text-xs" style={{ color: "rgba(255,255,255,0.35)" }}>
+            {d.connections}
+          </div>
+          <div className="text-lg font-bold" style={{ color: "#a78bfa" }}>
+            {node.connection_count || 0}
+          </div>
         </div>
       </div>
 
       {/* System metrics */}
       <div className="px-5 pb-3 flex flex-col gap-2.5">
         <MetricBar
-          label={d.cpu}
-          value={node.cpu_percent}
-          max={100}
           dangerThreshold={80}
+          label={d.cpu}
+          max={100}
+          value={node.cpu_percent}
         />
         <MetricBar
-          label={d.memory}
-          value={node.mem_used}
-          max={node.mem_total}
-          unit={`${formatBytes(node.mem_used)} / ${formatBytes(node.mem_total)} (${pct(node.mem_used, node.mem_total)}%)`}
           color="linear-gradient(90deg,#7c3aed,#06b6d4)"
           dangerThreshold={85}
+          label={d.memory}
+          max={node.mem_total}
+          unit={`${formatBytes(node.mem_used)} / ${formatBytes(node.mem_total)} (${pct(node.mem_used, node.mem_total)}%)`}
+          value={node.mem_used}
         />
         <MetricBar
-          label={d.disk}
-          value={node.disk_used}
-          max={node.disk_total}
-          unit={`${formatBytes(node.disk_used)} / ${formatBytes(node.disk_total)} (${pct(node.disk_used, node.disk_total)}%)`}
           color="linear-gradient(90deg,#2563eb,#0ea5e9)"
           dangerThreshold={90}
+          label={d.disk}
+          max={node.disk_total}
+          unit={`${formatBytes(node.disk_used)} / ${formatBytes(node.disk_total)} (${pct(node.disk_used, node.disk_total)}%)`}
+          value={node.disk_used}
         />
       </div>
 
@@ -219,12 +259,20 @@ function NodeCard({ node, dict }: { node: ClusterNode; dict: any }) {
       {node.traffic_limit_bytes > 0 && (
         <div className="px-5 mb-3">
           <div className="flex justify-between items-center mb-1">
-            <span className="text-xs" style={{ color: "rgba(255,255,255,0.45)" }}>{d.traffic}</span>
+            <span
+              className="text-xs"
+              style={{ color: "rgba(255,255,255,0.45)" }}
+            >
+              {d.traffic}
+            </span>
             <span
               className="text-xs font-medium"
-              style={{ color: trafficDanger ? "#f87171" : "rgba(255,255,255,0.7)" }}
+              style={{
+                color: trafficDanger ? "#f87171" : "rgba(255,255,255,0.7)",
+              }}
             >
-              {formatBytes(node.traffic_used_bytes)} / {formatBytes(node.traffic_limit_bytes)} ({trafficPct}%)
+              {formatBytes(node.traffic_used_bytes)} /{" "}
+              {formatBytes(node.traffic_limit_bytes)} ({trafficPct}%)
             </span>
           </div>
           <div
@@ -247,22 +295,39 @@ function NodeCard({ node, dict }: { node: ClusterNode; dict: any }) {
       {/* Speed row */}
       <div
         className="mx-5 mb-3 rounded-xl px-4 py-2.5 flex gap-4"
-        style={{ background: "rgba(255,255,255,0.03)", border: "1px solid rgba(255,255,255,0.05)" }}
+        style={{
+          background: "rgba(255,255,255,0.03)",
+          border: "1px solid rgba(255,255,255,0.05)",
+        }}
       >
         <div className="flex-1 flex items-center gap-2">
-          <span className="text-xs" style={{ color: "#4ade80" }}>{d.speedUp}</span>
-          <span className="text-sm font-semibold text-white">{formatSpeed(node.bytes_up_per_sec || 0)}</span>
+          <span className="text-xs" style={{ color: "#4ade80" }}>
+            {d.speedUp}
+          </span>
+          <span className="text-sm font-semibold text-white">
+            {formatSpeed(node.bytes_up_per_sec || 0)}
+          </span>
         </div>
-        <div className="w-px" style={{ background: "rgba(255,255,255,0.08)" }} />
+        <div
+          className="w-px"
+          style={{ background: "rgba(255,255,255,0.08)" }}
+        />
         <div className="flex-1 flex items-center gap-2">
-          <span className="text-xs" style={{ color: "#60a5fa" }}>{d.speedDown}</span>
-          <span className="text-sm font-semibold text-white">{formatSpeed(node.bytes_down_per_sec || 0)}</span>
+          <span className="text-xs" style={{ color: "#60a5fa" }}>
+            {d.speedDown}
+          </span>
+          <span className="text-sm font-semibold text-white">
+            {formatSpeed(node.bytes_down_per_sec || 0)}
+          </span>
         </div>
       </div>
 
       {/* User connections toggle */}
       {node.connections && node.connections.length > 0 && (
-        <div className="border-t" style={{ borderColor: "rgba(255,255,255,0.06)" }}>
+        <div
+          className="border-t"
+          style={{ borderColor: "rgba(255,255,255,0.06)" }}
+        >
           <button
             className="w-full flex items-center justify-between px-5 py-3 text-xs font-medium transition-colors hover:bg-white/[0.02]"
             style={{ color: "rgba(255,255,255,0.5)" }}
@@ -272,16 +337,22 @@ function NodeCard({ node, dict }: { node: ClusterNode; dict: any }) {
               {d.connections} ({node.connections.length})
             </span>
             <svg
-              width="14"
-              height="14"
-              viewBox="0 0 24 24"
+              className="transition-transform duration-200"
               fill="none"
+              height="14"
               stroke="currentColor"
               strokeWidth="2"
-              className="transition-transform duration-200"
-              style={{ transform: expanded ? "rotate(180deg)" : "rotate(0deg)" }}
+              style={{
+                transform: expanded ? "rotate(180deg)" : "rotate(0deg)",
+              }}
+              viewBox="0 0 24 24"
+              width="14"
             >
-              <path d="M6 9l6 6 6-6" strokeLinecap="round" strokeLinejoin="round" />
+              <path
+                d="M6 9l6 6 6-6"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              />
             </svg>
           </button>
 
@@ -289,16 +360,20 @@ function NodeCard({ node, dict }: { node: ClusterNode; dict: any }) {
             <div className="overflow-x-auto pb-3">
               <table className="w-full text-xs">
                 <thead>
-                  <tr style={{ borderBottom: "1px solid rgba(255,255,255,0.06)" }}>
-                    {[d.uuid, d.email, d.port, d.upBytes, d.downBytes].map((h) => (
-                      <th
-                        key={h}
-                        className="px-5 py-2 text-left font-medium uppercase tracking-wider whitespace-nowrap"
-                        style={{ color: "rgba(255,255,255,0.3)" }}
-                      >
-                        {h}
-                      </th>
-                    ))}
+                  <tr
+                    style={{ borderBottom: "1px solid rgba(255,255,255,0.06)" }}
+                  >
+                    {[d.uuid, d.email, d.port, d.upBytes, d.downBytes].map(
+                      (h) => (
+                        <th
+                          key={h}
+                          className="px-5 py-2 text-left font-medium uppercase tracking-wider whitespace-nowrap"
+                          style={{ color: "rgba(255,255,255,0.3)" }}
+                        >
+                          {h}
+                        </th>
+                      ),
+                    )}
                   </tr>
                 </thead>
                 <tbody>
@@ -306,15 +381,26 @@ function NodeCard({ node, dict }: { node: ClusterNode; dict: any }) {
                     <tr
                       key={u.uuid}
                       className="hover:bg-white/[0.02] transition-colors"
-                      style={{ borderBottom: "1px solid rgba(255,255,255,0.04)" }}
+                      style={{
+                        borderBottom: "1px solid rgba(255,255,255,0.04)",
+                      }}
                     >
-                      <td className="px-5 py-2 font-mono" style={{ color: "rgba(255,255,255,0.45)" }}>
+                      <td
+                        className="px-5 py-2 font-mono"
+                        style={{ color: "rgba(255,255,255,0.45)" }}
+                      >
                         {u.uuid.slice(0, 8)}…
                       </td>
-                      <td className="px-5 py-2" style={{ color: "rgba(255,255,255,0.7)" }}>
+                      <td
+                        className="px-5 py-2"
+                        style={{ color: "rgba(255,255,255,0.7)" }}
+                      >
                         {u.email}
                       </td>
-                      <td className="px-5 py-2" style={{ color: "rgba(255,255,255,0.5)" }}>
+                      <td
+                        className="px-5 py-2"
+                        style={{ color: "rgba(255,255,255,0.5)" }}
+                      >
                         {u.port}
                       </td>
                       <td className="px-5 py-2" style={{ color: "#4ade80" }}>
@@ -337,7 +423,13 @@ function NodeCard({ node, dict }: { node: ClusterNode; dict: any }) {
 
 // ─── Main Component ─────────────────────────────────────────────────────────
 
-export default function AdminCluster({ dict, regkey }: { dict: any; regkey: string }) {
+export default function AdminCluster({
+  dict,
+  regkey,
+}: {
+  dict: any;
+  regkey: string;
+}) {
   const d = dict.cluster;
 
   const [nodes, setNodes] = useState<ClusterNode[]>([]);
@@ -353,9 +445,10 @@ export default function AdminCluster({ dict, regkey }: { dict: any; regkey: stri
       try {
         const res = await fetch(
           `${process.env.NEXT_PUBLIC_API_URL || ""}/admin/cluster`,
-          { headers: { REGKEY: regkey } }
+          { headers: { REGKEY: regkey } },
         );
         const data = await res.json();
+
         setNodes(data.nodes || []);
         setLastUpdated(new Date());
       } catch {
@@ -365,7 +458,7 @@ export default function AdminCluster({ dict, regkey }: { dict: any; regkey: stri
         if (isManual) setRefreshing(false);
       }
     },
-    [regkey]
+    [regkey],
   );
 
   // Initial load
@@ -378,6 +471,7 @@ export default function AdminCluster({ dict, regkey }: { dict: any; regkey: stri
     if (autoRefresh) {
       intervalRef.current = setInterval(() => fetchData(), 10_000);
     }
+
     return () => {
       if (intervalRef.current) clearInterval(intervalRef.current);
     };
@@ -391,6 +485,7 @@ export default function AdminCluster({ dict, regkey }: { dict: any; regkey: stri
 
   const formatTime = (date: Date | null) => {
     if (!date) return "—";
+
     return date.toLocaleTimeString();
   };
 
@@ -402,49 +497,64 @@ export default function AdminCluster({ dict, regkey }: { dict: any; regkey: stri
         <div className="flex items-center gap-3">
           {/* Last updated */}
           {lastUpdated && (
-            <span className="text-xs" style={{ color: "rgba(255,255,255,0.35)" }}>
+            <span
+              className="text-xs"
+              style={{ color: "rgba(255,255,255,0.35)" }}
+            >
               {d.lastUpdated}: {formatTime(lastUpdated)}
             </span>
           )}
           {/* Auto-refresh toggle */}
           <button
-            onClick={() => setAutoRefresh((v) => !v)}
             className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-medium transition-all"
             style={{
-              background: autoRefresh ? "rgba(124,58,237,0.2)" : "rgba(255,255,255,0.05)",
+              background: autoRefresh
+                ? "rgba(124,58,237,0.2)"
+                : "rgba(255,255,255,0.05)",
               border: `1px solid ${autoRefresh ? "rgba(124,58,237,0.4)" : "rgba(255,255,255,0.1)"}`,
               color: autoRefresh ? "#a78bfa" : "rgba(255,255,255,0.5)",
             }}
+            onClick={() => setAutoRefresh((v) => !v)}
           >
             <span
               className="w-1.5 h-1.5 rounded-full"
-              style={{ background: autoRefresh ? "#a78bfa" : "rgba(255,255,255,0.3)" }}
+              style={{
+                background: autoRefresh ? "#a78bfa" : "rgba(255,255,255,0.3)",
+              }}
             />
             {d.autoRefresh}
           </button>
           {/* Manual refresh */}
           <button
-            onClick={() => fetchData(true)}
-            disabled={refreshing}
             className="flex items-center gap-2 px-3 py-1.5 rounded-lg text-xs font-medium transition-all"
+            disabled={refreshing}
             style={{
               background: "rgba(255,255,255,0.05)",
               border: "1px solid rgba(255,255,255,0.1)",
               color: "rgba(255,255,255,0.6)",
               opacity: refreshing ? 0.6 : 1,
             }}
+            onClick={() => fetchData(true)}
           >
             <svg
-              width="13"
-              height="13"
-              viewBox="0 0 24 24"
+              className={refreshing ? "animate-spin" : ""}
               fill="none"
+              height="13"
               stroke="currentColor"
               strokeWidth="2"
-              className={refreshing ? "animate-spin" : ""}
+              viewBox="0 0 24 24"
+              width="13"
             >
-              <path d="M23 4v6h-6" strokeLinecap="round" strokeLinejoin="round" />
-              <path d="M1 20v-6h6" strokeLinecap="round" strokeLinejoin="round" />
+              <path
+                d="M23 4v6h-6"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              />
+              <path
+                d="M1 20v-6h6"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              />
               <path
                 d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"
                 strokeLinecap="round"
@@ -459,55 +569,100 @@ export default function AdminCluster({ dict, regkey }: { dict: any; regkey: stri
       {/* Summary bar */}
       <div className="flex flex-wrap gap-3 mb-6">
         <SummaryCard
-          label={d.nodeCount}
-          value={`${onlineNodes.length} / ${nodes.length}`}
           gradient="linear-gradient(135deg,#7c3aed,#4f46e5)"
           icon={
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="1.8">
-              <circle cx="12" cy="5" r="3"/>
-              <circle cx="5" cy="19" r="3"/>
-              <circle cx="19" cy="19" r="3"/>
-              <path d="M12 8v4M12 12l-5 5M12 12l5 5" strokeLinecap="round"/>
+            <svg
+              fill="none"
+              height="18"
+              stroke="white"
+              strokeWidth="1.8"
+              viewBox="0 0 24 24"
+              width="18"
+            >
+              <circle cx="12" cy="5" r="3" />
+              <circle cx="5" cy="19" r="3" />
+              <circle cx="19" cy="19" r="3" />
+              <path d="M12 8v4M12 12l-5 5M12 12l5 5" strokeLinecap="round" />
             </svg>
           }
+          label={d.nodeCount}
+          value={`${onlineNodes.length} / ${nodes.length}`}
         />
         <SummaryCard
-          label={d.totalConns}
-          value={String(totalConns)}
           gradient="linear-gradient(135deg,#2563eb,#0ea5e9)"
           icon={
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="1.8">
-              <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2" strokeLinecap="round"/>
-              <circle cx="9" cy="7" r="4"/>
-              <path d="M23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75" strokeLinecap="round"/>
+            <svg
+              fill="none"
+              height="18"
+              stroke="white"
+              strokeWidth="1.8"
+              viewBox="0 0 24 24"
+              width="18"
+            >
+              <path
+                d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"
+                strokeLinecap="round"
+              />
+              <circle cx="9" cy="7" r="4" />
+              <path
+                d="M23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"
+                strokeLinecap="round"
+              />
             </svg>
           }
+          label={d.totalConns}
+          value={String(totalConns)}
         />
         <SummaryCard
-          label={d.totalUp}
-          value={formatSpeed(totalUp)}
           gradient="linear-gradient(135deg,#059669,#10b981)"
           icon={
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="1.8">
-              <path d="M12 19V5M5 12l7-7 7 7" strokeLinecap="round" strokeLinejoin="round"/>
+            <svg
+              fill="none"
+              height="18"
+              stroke="white"
+              strokeWidth="1.8"
+              viewBox="0 0 24 24"
+              width="18"
+            >
+              <path
+                d="M12 19V5M5 12l7-7 7 7"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              />
             </svg>
           }
+          label={d.totalUp}
+          value={formatSpeed(totalUp)}
         />
         <SummaryCard
-          label={d.totalDown}
-          value={formatSpeed(totalDown)}
           gradient="linear-gradient(135deg,#d97706,#f59e0b)"
           icon={
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="1.8">
-              <path d="M12 5v14M5 12l7 7 7-7" strokeLinecap="round" strokeLinejoin="round"/>
+            <svg
+              fill="none"
+              height="18"
+              stroke="white"
+              strokeWidth="1.8"
+              viewBox="0 0 24 24"
+              width="18"
+            >
+              <path
+                d="M12 5v14M5 12l7 7 7-7"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              />
             </svg>
           }
+          label={d.totalDown}
+          value={formatSpeed(totalDown)}
         />
       </div>
 
       {/* Node cards grid */}
       {loading ? (
-        <div className="py-20 text-center text-sm animate-pulse" style={{ color: "rgba(255,255,255,0.3)" }}>
+        <div
+          className="py-20 text-center text-sm animate-pulse"
+          style={{ color: "rgba(255,255,255,0.3)" }}
+        >
           Loading...
         </div>
       ) : nodes.length === 0 ? (
@@ -524,10 +679,13 @@ export default function AdminCluster({ dict, regkey }: { dict: any; regkey: stri
       ) : (
         <div
           className="grid gap-4"
-          style={{ gridTemplateColumns: "repeat(auto-fill, minmax(min(100%, 500px), 1fr))" }}
+          style={{
+            gridTemplateColumns:
+              "repeat(auto-fill, minmax(min(100%, 500px), 1fr))",
+          }}
         >
           {nodes.map((node) => (
-            <NodeCard key={node.service_id} node={node} dict={d} />
+            <NodeCard key={node.service_id} dict={d} node={node} />
           ))}
         </div>
       )}

@@ -7,23 +7,16 @@ import {
   NavbarItem,
   NavbarMenuItem,
 } from "@nextui-org/navbar";
-import { Button } from "@nextui-org/button";
-import { Kbd } from "@nextui-org/kbd";
 import { Link } from "@nextui-org/link";
-import { Input } from "@nextui-org/input";
 import { link as linkStyles } from "@nextui-org/theme";
 import NextLink from "next/link";
 import clsx from "clsx";
 
 import { siteConfig } from "@/config/site";
-import { ThemeSwitch } from "@/components/theme-switch";
 import { GithubIcon, Logo } from "@/components/icons";
-import { it } from "node:test";
 import { LanguageSwitch } from "@/components/language-switch";
-import { getDictionary } from "@/app/[lang]/dictionaries";
 
-export const Navbar = ({dict, lang}: { dict: any, lang: string }) => {
-
+export const Navbar = ({ dict, lang }: { dict: any; lang: string }) => {
   return (
     <NextUINavbar className="bg-[#0a0118]" maxWidth="xl" position="sticky">
       <NavbarContent className="basis-1/5 sm:basis-full" justify="start">
@@ -61,7 +54,7 @@ export const Navbar = ({dict, lang}: { dict: any, lang: string }) => {
           </Link>
           <LanguageSwitch lang={lang} />
         </NavbarItem>
-        <NavbarMenuToggle className="lg:hidden"/>
+        <NavbarMenuToggle className="lg:hidden" />
       </NavbarContent>
 
       <NavbarContent className="sm:hidden basis-1 pl-4" justify="end">

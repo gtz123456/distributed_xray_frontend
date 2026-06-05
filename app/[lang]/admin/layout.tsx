@@ -1,8 +1,9 @@
 import "@/styles/globals.css";
 import { Metadata } from "next";
+import clsx from "clsx";
+
 import { Providers } from "@/app/[lang]/providers";
 import { fontSans } from "@/config/fonts";
-import clsx from "clsx";
 
 export const metadata: Metadata = {
   title: "Admin Panel - FreewayVPN",
@@ -22,7 +23,10 @@ export default async function AdminLayout({
     <html suppressHydrationWarning lang={lang}>
       <head />
       <body
-        className={clsx("min-h-screen font-sans antialiased", fontSans.variable)}
+        className={clsx(
+          "min-h-screen font-sans antialiased",
+          fontSans.variable,
+        )}
         style={{ backgroundColor: "#060010" }}
       >
         <Providers themeProps={{ attribute: "class", defaultTheme: "dark" }}>

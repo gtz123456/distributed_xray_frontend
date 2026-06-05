@@ -12,7 +12,11 @@ interface TerminalModalProps {
   onClose: () => void;
 }
 
-export default function TerminalModal({ serviceId, regkey, onClose }: TerminalModalProps) {
+export default function TerminalModal({
+  serviceId,
+  regkey,
+  onClose,
+}: TerminalModalProps) {
   const terminalRef = useRef<HTMLDivElement>(null);
   const [error, setError] = useState<string | null>(null);
 
@@ -28,10 +32,11 @@ export default function TerminalModal({ serviceId, regkey, onClose }: TerminalMo
         cursor: "#f8f8f2",
       },
     });
-    
+
     const fitAddon = new FitAddon();
+
     term.loadAddon(fitAddon);
-    
+
     term.open(terminalRef.current);
     fitAddon.fit();
 
@@ -39,16 +44,20 @@ export default function TerminalModal({ serviceId, regkey, onClose }: TerminalMo
     const resizeObserver = new ResizeObserver(() => {
       fitAddon.fit();
     });
+
     resizeObserver.observe(terminalRef.current);
 
     const apiUrl = process.env.NEXT_PUBLIC_API_URL || window.location.origin;
     // Replace http(s) with ws(s)
-    const wsUrl = apiUrl.replace(/^http/, "ws") + `/admin/nodes/${serviceId}/shell?regkey=${encodeURIComponent(regkey)}`;
+    const wsUrl =
+      apiUrl.replace(/^http/, "ws") +
+      `/admin/nodes/${serviceId}/shell?regkey=${encodeURIComponent(regkey)}`;
 
     const ws = new WebSocket(wsUrl);
 
     ws.onopen = () => {
       const attachAddon = new AttachAddon(ws);
+
       term.loadAddon(attachAddon);
       term.focus();
     };
@@ -75,17 +84,17 @@ export default function TerminalModal({ serviceId, regkey, onClose }: TerminalMo
         {/* Header */}
         <div className="flex items-center justify-between px-4 py-3 border-b border-white/10 bg-white/[0.02]">
           <h2 className="text-sm font-mono text-white/80 flex items-center gap-2">
-            <span className="w-2 h-2 rounded-full bg-green-500 animate-pulse"></span>
+            <span className="w-2 h-2 rounded-full bg-green-500 animate-pulse" />
             {serviceId} - Terminal
           </h2>
           <button
-            onClick={onClose}
             className="text-white/50 hover:text-white transition-colors p-1"
+            onClick={onClose}
           >
             ✕
           </button>
         </div>
-        
+
         {/* Terminal Container */}
         <div className="flex-1 p-2 overflow-hidden relative">
           {error && (

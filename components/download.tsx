@@ -1,5 +1,7 @@
 "use client";
 
+import { useEffect, useState } from "react";
+
 import { subtitle } from "@/components/primitives";
 import {
   AndroidIcon,
@@ -8,11 +10,12 @@ import {
   LinuxIcon,
   WindowsIcon,
 } from "@/components/icons";
-import { useEffect, useState } from "react";
 
 export const Download = ({ dict }: any) => {
   const [assets, setAssets] = useState<{ name: string; url: string }[]>([]);
-  const [assetGroups, setAssetGroups] = useState<{ label: string; options: { name: string; url: string }[] }[]>([]);
+  const [assetGroups, setAssetGroups] = useState<
+    { label: string; options: { name: string; url: string }[] }[]
+  >([]);
   const [selectedAsset, setSelectedAsset] = useState<{
     name: string;
     url: string;
@@ -26,6 +29,7 @@ export const Download = ({ dict }: any) => {
       const ua = navigator.userAgent.toLowerCase();
       const plat = navigator.platform.toLowerCase();
       let plt = "";
+
       if (plat.includes("win")) plt = "windows";
       else if (plat.includes("mac")) plt = "macos";
       else if (plat.includes("linux")) plt = "linux";
@@ -34,15 +38,15 @@ export const Download = ({ dict }: any) => {
       setPlatform(plt);
 
       let arch = "x64";
+
       if (ua.includes("arm") || plat.includes("arm")) arch = "aarch64";
       setArchitecture(arch);
     }
 
     // Fetch latest release assets
     const apiUrl = process.env.NEXT_PUBLIC_API_URL || "";
-    fetch(
-      `${apiUrl}/releases`
-    )
+
+    fetch(`${apiUrl}/releases`)
       .then((res) => res.json())
       .then((data) => {
         if (data.notice) {
@@ -67,53 +71,76 @@ export const Download = ({ dict }: any) => {
           lower: string;
         };
 
-        const windowsAssets = normalized.filter((a: NormalizedAsset) =>
-          a.lower.endsWith(".exe") || a.lower.endsWith(".msi")
+        const windowsAssets = normalized.filter(
+          (a: NormalizedAsset) =>
+            a.lower.endsWith(".exe") || a.lower.endsWith(".msi"),
         );
 
-        let macAssets = normalized.filter((a: NormalizedAsset) => a.lower.endsWith(".dmg"));
-        // FIX: Re-assign the filtered array
-        macAssets = macAssets.filter((a: NormalizedAsset) => !a.lower.endsWith(".gz"));
+        let macAssets = normalized.filter((a: NormalizedAsset) =>
+          a.lower.endsWith(".dmg"),
+        );
 
-        const linuxAssets = normalized.filter((a: NormalizedAsset) =>
-          a.lower.endsWith(".rpm") ||
-          a.lower.endsWith(".deb") ||
-          a.lower.endsWith(".appimage")
+        // FIX: Re-assign the filtered array
+        macAssets = macAssets.filter(
+          (a: NormalizedAsset) => !a.lower.endsWith(".gz"),
+        );
+
+        const linuxAssets = normalized.filter(
+          (a: NormalizedAsset) =>
+            a.lower.endsWith(".rpm") ||
+            a.lower.endsWith(".deb") ||
+            a.lower.endsWith(".appimage"),
         );
 
         // 2. Further split Mac assets by architecture
-        const macAppleSiliconAssets = macAssets.filter((a: NormalizedAsset) =>
-          a.lower.includes("arm64") || a.lower.includes("aarch64")
+        const macAppleSiliconAssets = macAssets.filter(
+          (a: NormalizedAsset) =>
+            a.lower.includes("arm64") || a.lower.includes("aarch64"),
         );
-        const macIntelAssets = macAssets.filter((a: NormalizedAsset) =>
-          a.lower.includes("x64") || a.lower.includes("amd64") ||
-          (!a.lower.includes("arm64") && !a.lower.includes("aarch64")) // Fallback
+        const macIntelAssets = macAssets.filter(
+          (a: NormalizedAsset) =>
+            a.lower.includes("x64") ||
+            a.lower.includes("amd64") ||
+            (!a.lower.includes("arm64") && !a.lower.includes("aarch64")), // Fallback
         );
 
         // 3. Create the grouped structure for the <select> element
         const groups = [];
+
         if (windowsAssets.length > 0) {
           groups.push({
             label: "Windows",
-            options: windowsAssets.map((a: NormalizedAsset) => ({ name: a.name, url: a.url })),
+            options: windowsAssets.map((a: NormalizedAsset) => ({
+              name: a.name,
+              url: a.url,
+            })),
           });
         }
         if (macAppleSiliconAssets.length > 0) {
           groups.push({
             label: "macOS - Apple Silicon (M1-M4)",
-            options: macAppleSiliconAssets.map((a: NormalizedAsset) => ({ name: a.name, url: a.url })),
+            options: macAppleSiliconAssets.map((a: NormalizedAsset) => ({
+              name: a.name,
+              url: a.url,
+            })),
           });
         }
         if (macIntelAssets.length > 0) {
           groups.push({
             label: "macOS - Intel Chip",
-            options: macIntelAssets.map((a: NormalizedAsset) => ({ name: a.name, url: a.url })),
+            options: macIntelAssets.map((a: NormalizedAsset) => ({
+              name: a.name,
+              url: a.url,
+            })),
           });
         }
         if (linuxAssets.length > 0) {
           groups.push({
             label: "Linux",
-            options: linuxAssets.map((a: NormalizedAsset) => ({ name: a.name, url: a.url })),
+            options: linuxAssets.map((a: NormalizedAsset) => ({
+              name: a.name,
+              url: a.url,
+            })),
           });
         }
         setAssetGroups(groups);
@@ -121,15 +148,17 @@ export const Download = ({ dict }: any) => {
         console.log("Asset Groups:", groups);
 
         // 4. Create a flat list of all assets for finding the default/onChange
-        const allSortedAssets = groups.flatMap(g => g.options);
+        const allSortedAssets = groups.flatMap((g) => g.options);
+
         setAssets(allSortedAssets);
 
         // 5. Choose default asset
         const defaultAsset = allSortedAssets.find(
           (a) =>
             a.name.toLowerCase().includes(platform) &&
-            a.name.toLowerCase().includes(architecture)
+            a.name.toLowerCase().includes(architecture),
         );
+
         setSelectedAsset(defaultAsset || allSortedAssets[0] || null);
       })
       .catch((err) => console.error("Failed to fetch releases:", err));
@@ -165,15 +194,16 @@ export const Download = ({ dict }: any) => {
       </ul>
 
       <div className="mt-4 flex flex-row items-center gap-2">
-        <label htmlFor="asset-select" className="block text-md text-gray-400">
+        <label className="block text-md text-gray-400" htmlFor="asset-select">
           {dict.selectVersion}
         </label>
         <select
-          id="asset-select"
           className="mt-2 p-2 border rounded"
+          id="asset-select"
           value={selectedAsset?.name || ""}
           onChange={(e) => {
             const asset = assets.find((a) => a.name === e.target.value);
+
             if (asset) {
               setSelectedAsset(asset);
             }
@@ -193,10 +223,10 @@ export const Download = ({ dict }: any) => {
       </div>
 
       <a
-        href={selectedAsset?.url || "#"}
         className="h-12 mt-4 inline-flex items-center justify-center px-6 py-2 bg-blue-700 text-white rounded-full hover:bg-blue-800"
-        target="_blank"
+        href={selectedAsset?.url || "#"}
         rel="noreferrer"
+        target="_blank"
       >
         {dict.downloadButton}
       </a>

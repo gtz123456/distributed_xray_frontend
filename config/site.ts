@@ -15,7 +15,7 @@ export const siteConfig = {
     {
       label: "Download",
       href: "/download",
-    }
+    },
   ],
   navMenuItems: [
     {
@@ -29,7 +29,7 @@ export const siteConfig = {
     {
       label: "Download",
       href: "/download",
-    }
+    },
   ],
   links: {
     github: "https://github.com/gtz123456/distributed_xray",

@@ -1,6 +1,7 @@
 "use client";
 
 import { Tab } from "./AdminPanel";
+
 import { LanguageSwitch } from "@/components/language-switch";
 import { Logo } from "@/components/icons";
 
@@ -8,28 +9,49 @@ const NAV_ITEMS: { key: Tab; icon: React.ReactNode }[] = [
   {
     key: "stats",
     icon: (
-      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8">
-        <rect x="2" y="12" width="4" height="10" rx="1" />
-        <rect x="9" y="7" width="4" height="15" rx="1" />
-        <rect x="16" y="2" width="4" height="20" rx="1" />
+      <svg
+        fill="none"
+        height="18"
+        stroke="currentColor"
+        strokeWidth="1.8"
+        viewBox="0 0 24 24"
+        width="18"
+      >
+        <rect height="10" rx="1" width="4" x="2" y="12" />
+        <rect height="15" rx="1" width="4" x="9" y="7" />
+        <rect height="20" rx="1" width="4" x="16" y="2" />
       </svg>
     ),
   },
   {
     key: "cluster",
     icon: (
-      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8">
-        <circle cx="12" cy="5" r="3"/>
-        <circle cx="5" cy="19" r="3"/>
-        <circle cx="19" cy="19" r="3"/>
-        <path d="M12 8v4M12 12l-5 5M12 12l5 5" strokeLinecap="round"/>
+      <svg
+        fill="none"
+        height="18"
+        stroke="currentColor"
+        strokeWidth="1.8"
+        viewBox="0 0 24 24"
+        width="18"
+      >
+        <circle cx="12" cy="5" r="3" />
+        <circle cx="5" cy="19" r="3" />
+        <circle cx="19" cy="19" r="3" />
+        <path d="M12 8v4M12 12l-5 5M12 12l5 5" strokeLinecap="round" />
       </svg>
     ),
   },
   {
     key: "users",
     icon: (
-      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8">
+      <svg
+        fill="none"
+        height="18"
+        stroke="currentColor"
+        strokeWidth="1.8"
+        viewBox="0 0 24 24"
+        width="18"
+      >
         <circle cx="9" cy="7" r="4" />
         <path d="M2 21v-1a7 7 0 0 1 14 0v1" />
         <path d="M19 8v6M22 11h-6" strokeLinecap="round" />
@@ -39,7 +61,14 @@ const NAV_ITEMS: { key: Tab; icon: React.ReactNode }[] = [
   {
     key: "connections",
     icon: (
-      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8">
+      <svg
+        fill="none"
+        height="18"
+        stroke="currentColor"
+        strokeWidth="1.8"
+        viewBox="0 0 24 24"
+        width="18"
+      >
         <circle cx="5" cy="12" r="3" />
         <circle cx="19" cy="5" r="3" />
         <circle cx="19" cy="19" r="3" />
@@ -50,8 +79,15 @@ const NAV_ITEMS: { key: Tab; icon: React.ReactNode }[] = [
   {
     key: "nodes",
     icon: (
-      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8">
-        <rect x="2" y="3" width="20" height="14" rx="2" />
+      <svg
+        fill="none"
+        height="18"
+        stroke="currentColor"
+        strokeWidth="1.8"
+        viewBox="0 0 24 24"
+        width="18"
+      >
+        <rect height="14" rx="2" width="20" x="2" y="3" />
         <path d="M8 21h8M12 17v4" strokeLinecap="round" />
       </svg>
     ),
@@ -59,8 +95,15 @@ const NAV_ITEMS: { key: Tab; icon: React.ReactNode }[] = [
   {
     key: "vouchers",
     icon: (
-      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8">
-        <rect x="2" y="6" width="20" height="12" rx="2" />
+      <svg
+        fill="none"
+        height="18"
+        stroke="currentColor"
+        strokeWidth="1.8"
+        viewBox="0 0 24 24"
+        width="18"
+      >
+        <rect height="12" rx="2" width="20" x="2" y="6" />
         <path d="M2 10h20M6 14h2M10 14h4" strokeLinecap="round" />
       </svg>
     ),
@@ -98,17 +141,20 @@ export default function AdminSidebar({
       <nav className="flex flex-col gap-1 flex-1">
         {NAV_ITEMS.map(({ key, icon }) => {
           const active = activeTab === key;
+
           return (
             <button
               key={key}
-              id={`admin-nav-${key}`}
-              onClick={() => setActiveTab(key)}
               className="flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium transition-all text-left"
+              id={`admin-nav-${key}`}
               style={{
                 background: active ? "rgba(124,58,237,0.2)" : "transparent",
                 color: active ? "#a78bfa" : "rgba(255,255,255,0.5)",
-                border: active ? "1px solid rgba(124,58,237,0.3)" : "1px solid transparent",
+                border: active
+                  ? "1px solid rgba(124,58,237,0.3)"
+                  : "1px solid transparent",
               }}
+              onClick={() => setActiveTab(key)}
             >
               {icon}
               {dict.nav[key]}
@@ -121,15 +167,25 @@ export default function AdminSidebar({
       <div className="flex flex-col gap-2 pt-4 border-t border-purple-900/20">
         <LanguageSwitch lang={lang} />
         <button
-          id="admin-logout-btn"
-          onClick={onLogout}
           className="flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium transition-all text-left"
+          id="admin-logout-btn"
           style={{ color: "rgba(255,255,255,0.4)" }}
+          onClick={onLogout}
         >
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8">
-            <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4" strokeLinecap="round" />
+          <svg
+            fill="none"
+            height="18"
+            stroke="currentColor"
+            strokeWidth="1.8"
+            viewBox="0 0 24 24"
+            width="18"
+          >
+            <path
+              d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"
+              strokeLinecap="round"
+            />
             <polyline points="16 17 21 12 16 7" />
-            <line x1="21" y1="12" x2="9" y2="12" strokeLinecap="round" />
+            <line strokeLinecap="round" x1="21" x2="9" y1="12" y2="12" />
           </svg>
           {dict.logout}
         </button>

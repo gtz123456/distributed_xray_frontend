@@ -1,6 +1,5 @@
 import "@/styles/globals.css";
 import { Metadata, Viewport } from "next";
-import { Link } from "@nextui-org/link";
 import clsx from "clsx";
 
 import { Providers } from "./providers";
@@ -8,7 +7,6 @@ import { Providers } from "./providers";
 import { siteConfig } from "@/config/site";
 import { fontSans } from "@/config/fonts";
 import { Navbar } from "@/components/navbar";
-
 import { getDictionary } from "@/app/[lang]/dictionaries";
 
 export const metadata: Metadata = {
@@ -32,8 +30,8 @@ export default async function RootLayout({
   children: React.ReactNode;
   params: Promise<{ lang: "en" | "zh" }>;
 }) {
-    const { lang } = await params;
-    const dict: any = await getDictionary(lang);
+  const { lang } = await params;
+  const dict: any = await getDictionary(lang);
 
   return (
     <html suppressHydrationWarning lang="en">
@@ -47,7 +45,7 @@ export default async function RootLayout({
       >
         <Providers themeProps={{ attribute: "class", defaultTheme: "dark" }}>
           <div className="relative flex flex-col h-screen">
-            <Navbar dict={dict.routes} lang={lang}/>
+            <Navbar dict={dict.routes} lang={lang} />
             <main className="container mx-auto max-w-7xl pt-16 px-6 flex-grow">
               {children}
             </main>

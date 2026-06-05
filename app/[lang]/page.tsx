@@ -5,7 +5,6 @@ import { button as buttonStyles } from "@nextui-org/theme";
 import { getDictionary } from "@/app/[lang]/dictionaries";
 import { siteConfig } from "@/config/site";
 import { GithubIcon } from "@/components/icons";
-
 import HexMap from "@/components/hexmap";
 
 export default async function Home({
@@ -31,7 +30,7 @@ export default async function Home({
         </p>
       </div>
 
-      <HexMap/>
+      <HexMap />
 
       <div className="flex gap-4 mt-4">
         <NextLink

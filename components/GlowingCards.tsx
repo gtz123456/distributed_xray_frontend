@@ -11,13 +11,17 @@ interface GlowingCardProps {
   className?: string;
 }
 
-export default function GlowingCard({ children, className = "w-48 h-48" }: GlowingCardProps) {
+export default function GlowingCard({
+  children,
+  className = "w-48 h-48",
+}: GlowingCardProps) {
   const [isHover, setIsHover] = useState(false);
   const [coords, setCoords] = useState({ x: 0, y: 0 });
   const cardRef = useRef<HTMLDivElement>(null);
 
   const handleMouseMove = (e: React.MouseEvent) => {
     const rect = cardRef.current?.getBoundingClientRect();
+
     if (!rect) return;
     setCoords({
       x: e.clientX - rect.left,
@@ -28,16 +32,14 @@ export default function GlowingCard({ children, className = "w-48 h-48" }: Glowi
   return (
     <div
       ref={cardRef}
-      onMouseMove={handleMouseMove}
-      onMouseEnter={() => setIsHover(true)}
-      onMouseLeave={() => setIsHover(false)}
       className={`relative overflow-hidden rounded-lg border border-gray-600 transition-shadow duration-200 ${className}`}
       style={{
         // Hover glow box-shadow
-        boxShadow: isHover
-          ? "0 0 15px 4px rgba(59,248,251,0.5)"
-          : "none"
+        boxShadow: isHover ? "0 0 15px 4px rgba(59,248,251,0.5)" : "none",
       }}
+      onMouseEnter={() => setIsHover(true)}
+      onMouseLeave={() => setIsHover(false)}
+      onMouseMove={handleMouseMove}
     >
       {/* Glow effect overlay placed above content */}
       <div
